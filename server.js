@@ -1,3 +1,3 @@
-(async () => {
-  require('./adapters');
+( () => {
+ require('./src');
 })();
