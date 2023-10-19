@@ -1,6 +1,6 @@
 {
   "name": "template",
-  "version": "v18.14.2",
+  "version": "18.14.2",
   "private": true,
   "scripts": {
     "start": "node ./server.js",
