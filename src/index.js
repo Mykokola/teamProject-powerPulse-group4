@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const port = 3000;
 const app = express();
 const passport = require('passport');
-
+const foodRouter = require('./routes/food')
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
@@ -13,10 +13,12 @@ app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.json());
 
+app.use('/',foodRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
+
 
 
 app.use((err, req, res, next) => {
