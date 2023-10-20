@@ -1,5 +1,5 @@
-const setupConection =  require("./src/untils/mobogDbConection");
+const setupConectionMongoDb =  require("./src/untils/mobogDbConection");
 (async () => {
-    await setupConection();
+    await setupConectionMongoDb();
  require('./src');
 })();
