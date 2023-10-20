@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const cloudinary = require("../untils/cloudinarySetup");
 const uploader = require("../middlewears/multer");
 router.post("/signup",)
 router.post("/login", )
