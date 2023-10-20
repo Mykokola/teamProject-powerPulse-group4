@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const uploader = require("../middlewears/multer");
-router.post("/signup",)
-router.post("/login", )
+const controllers = require('../controllers/identification')
+
+
+
+router.post("/signup",controllers.signup)
+
+router.post("/login",controllers.login)
 //PRIVATE
 router.post("/calculateDailyMetrics",)
 
