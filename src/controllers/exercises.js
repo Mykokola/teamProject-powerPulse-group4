@@ -1,6 +1,5 @@
 const { ctrlWrapper, HttpError } = require("../untils");
-const { exercisesAll } = require("../models/mongoose/exercises");
-const { detailsAll } = require("../models/mongoose/details");
+const { exercisesAll, detailsAll } = require("../models/mongoose/exercises");
 
 const getAllExercises = async (req, res) => {
   const exercises = await exercisesAll.find();

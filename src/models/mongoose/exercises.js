@@ -31,6 +31,22 @@ const exercisesSchema = new Schema({
   },
 });
 
-const exercisesAll = model("exercises", exercisesSchema);
+const detailsSchema = new Schema({
+  filter: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  imgURL: {
+    type: String,
+    required: true,
+  },
+});
 
-module.exports = { exercisesAll };
+const exercisesAll = model("exercises", exercisesSchema);
+const detailsAll = model("filters", detailsSchema);
+
+module.exports = { exercisesAll, detailsAll };
