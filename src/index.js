@@ -1,10 +1,15 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+<<<<<<< Updated upstream
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../swagger.json");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT || 3000;
+=======
+const cookieParser = require('cookie-parser');
+const port = process.env.PROT || 3000;
+>>>>>>> Stashed changes
 const app = express();
 const passport = require("passport");
 
