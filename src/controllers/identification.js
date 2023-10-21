@@ -27,7 +27,7 @@ const signup = async (req, res, next) => {
       password: hashPassword,
     };
     await authService.signup(user);
-    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 3600 });
+    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 3600 });
     res.cookie("jwt", token, { secure: true });
     delete user.password;
     res.status(200).json({
@@ -54,28 +54,46 @@ const login = async (req, res, next) => {
       });
       throw error;
     }
-    const hashPassword = user.password
-    const validPassword = await bcrypt.compare(hashPassword,password)
-    if(validPassword){
-
-        const error = createError(ERROR_TYPES.UNAUTHORIZED,{
-            message:"email or password is incorrect"
-        })
-        throw error
+    const hashPassword = user.password;
+    const validPassword = await bcrypt.compare(hashPassword, password);
+    if (validPassword) {
+      const error = createError(ERROR_TYPES.UNAUTHORIZED, {
+        message: "email or password is incorrect",
+      });
+      throw error;
     }
-    delete user.password
-    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: 3600 });
+    delete user.password;
+    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 3600 });
     res.cookie("jwt", token, { secure: true });
     res.status(200).json({
-        user,
-        token
-    })
+      user,
+      token,
+    });
   } catch (e) {
-    next(e)
+    next(e);
   }
 };
+const calculateDailyMetrics = async (req,res,next) => {
+    try{
 
+    }catch(e){
+        next(e)
+    }
+}
+const currentUser = async (req, res, next) => {
+  try {
+    const user = req.user.toObject()
+    delete user.password
+    res.status(200).json({
+        user
+    });
+  } catch (e) {
+    next(e);
+  }
+};
 module.exports = {
   signup,
   login,
+  currentUser,
+  calculateDailyMetrics
 };

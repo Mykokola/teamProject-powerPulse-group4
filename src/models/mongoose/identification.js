@@ -17,7 +17,35 @@ const clientSchema = new Schema({
         require:[false]
     }
 })
-
+const DailyMetricsSchema = new Schema({
+    height:{
+        type:Number,
+        require:[true,"height is require"]
+    },
+    currentWeight:{
+        type:Number,
+        require:[true,'currentWeight is require']
+    },
+    desiredWeight:{
+        type:Number,
+        require:[true,'desiredWeight is require']
+    },
+    birthday:{
+        type:Date,
+        require:[true,'birthday is require']
+    },
+    blood:{
+        type:Number,
+        require:[true,'blood is require']
+    },
+    sex:{
+        type:String,
+        require:[true,'sex is require']
+    },
+    levelActivity:{
+        type:Number,
+        require:[true,'levelActivity is require']
+    }
+})
 const clientModel = model('clients',clientSchema)
-
 module.exports = clientModel

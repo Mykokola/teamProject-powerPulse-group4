@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const uploader = require("../middlewears/multer");
 const controllers = require('../controllers/identification')
-
+const authMiddleware = require('../middlewears/authMiddleware')
 
 
 router.post("/signup",controllers.signup)
 
 router.post("/login",controllers.login)
 //PRIVATE
-router.post("/calculateDailyMetrics",)
+router.post("/calculateDailyMetrics",controllers.calculateDailyMetrics)
 
 router.patch("/upload", uploader.single("avatar"), async (req, res,next) => {
     try{
@@ -21,7 +21,7 @@ router.patch("/upload", uploader.single("avatar"), async (req, res,next) => {
     }
   });
 
-router.get("/currentUser", )
+router.get("/currentUser", authMiddleware,controllers.currentUser)
 
 router.post("/logout",)
 //PRIVATE
