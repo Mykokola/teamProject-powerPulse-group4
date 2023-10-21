@@ -1,4 +1,4 @@
-const { ctrlWrapper, HttpError } = require("../untils");
+const { ctrlWrapper, HttpError } = require("../utils");
 const { exercisesAll, detailsAll } = require("../models/mongoose/exercises");
 
 const getAllExercises = async (req, res) => {

@@ -1,6 +1,6 @@
 const ERROR_CODES = require("../constants/ERROR_CODES");
-const createError = require("../untils/createError");
-const passport = require("../untils/authChecker");
+const createError = require("../utils/createError");
+const passport = require("../utils/authChecker");
 const auth = async (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (error, user) => {
     if (error) {
