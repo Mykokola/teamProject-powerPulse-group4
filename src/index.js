@@ -12,7 +12,7 @@ const passport = require("passport");
 const products = require("./routes/products");
 const identification = require("./routes/identification");
 const statistics = require("./routes/statistics");
-const training = require("./routes/training");
+const exercises = require("./routes/exercises");
 const diary = require("./routes/diary");
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
@@ -28,7 +28,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/products", products);
 app.use("/identification", identification);
 app.use("/statistics", statistics);
-app.use("/training", training);
+app.use("/exercises", exercises);
 app.use("/diary", diary);
 
 app.use((req, res) => {
