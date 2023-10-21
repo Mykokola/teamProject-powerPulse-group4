@@ -5,11 +5,12 @@ const { JWT_SECRET } = require("../constants/env");
 const jwt = require("jsonwebtoken");
 const validateSchems = require("../models/joi/identification");
 const bcrypt = require("bcrypt");
+
 const signup = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const dubliceteClient = await authService.getClientByOptions({ email });
-    if (!validateSchems.registerSchema.validate(req.body)) {
+    if (validateSchems.registerSchema.validate(req.body).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
         message: "validate error",
       });
@@ -26,8 +27,8 @@ const signup = async (req, res, next) => {
       ...req.body,
       password: hashPassword,
     };
-    await authService.signup(user);
-    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 3600 });
+   const currentUser =   await authService.signup(user);
+    const token = jwt.sign({ sub: currentUser._id }, JWT_SECRET, { expiresIn: 3600 });
     res.cookie("jwt", token, { secure: true });
     delete user.password;
     res.status(200).json({
@@ -41,7 +42,7 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    if (!validateSchems.loginSchema.validate(req.body)) {
+    if (validateSchems.loginSchema.validate(req.body).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
         message: "validate error",
       });
@@ -73,19 +74,46 @@ const login = async (req, res, next) => {
     next(e);
   }
 };
-const calculateDailyMetrics = async (req,res,next) => {
-    try{
-
-    }catch(e){
-        next(e)
+const calculateDailyMetrics = async (req, res, next) => {
+  try {
+    const {_id} = req.user
+    const dailyMetricsData = req.body
+    if (validateSchems.dailyMetricsSchema.validate(dailyMetricsData).error) {
+      const error = createError(ERROR_TYPES.UNAUTHORIZED, {
+        message: "body  is incorrect",
+      });
+      throw error
     }
-}
+    const lifestyleFactor = { 1: 1.2, 2: 1.375, 3: 1.55, 4: 1.725, 5: 1.9 };
+    const { height, birthday, levelActivity, sex, currentWeight } =
+      dailyMetricsData;
+    const lifestyleClientFactor = lifestyleFactor[levelActivity];
+    const userAge =
+      new Date(Date.now() - Date.parse(new Date(birthday))).getUTCFullYear() -
+      1970;
+    const BMR = Math.round(
+      (10 * currentWeight +
+        6.25 * height -
+        5 * userAge +
+        (sex == "female" ? 5 : -161)) *
+        lifestyleClientFactor
+    );
+      const client = await authService.updateClientById(_id,dailyMetricsData)
+    res.status(200).json({
+      client,
+      BMR,
+      timeForSport: 110,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
 const currentUser = async (req, res, next) => {
   try {
-    const user = req.user.toObject()
-    delete user.password
+    const user = req.user.toObject();
+    delete user.password;
     res.status(200).json({
-        user
+      user,
     });
   } catch (e) {
     next(e);
@@ -95,5 +123,5 @@ module.exports = {
   signup,
   login,
   currentUser,
-  calculateDailyMetrics
+  calculateDailyMetrics,
 };

@@ -9,7 +9,7 @@ router.post("/signup",controllers.signup)
 
 router.post("/login",controllers.login)
 //PRIVATE
-router.post("/calculateDailyMetrics",controllers.calculateDailyMetrics)
+router.post("/calculateDailyMetrics",authMiddleware,controllers.calculateDailyMetrics)
 
 router.patch("/upload", uploader.single("avatar"), async (req, res,next) => {
     try{
