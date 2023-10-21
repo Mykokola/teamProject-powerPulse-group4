@@ -1,18 +1,13 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-<<<<<<< Updated upstream
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("../swagger.json");
-const cookieParser = require("cookie-parser");
-const port = process.env.PORT || 3000;
-=======
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 const cookieParser = require('cookie-parser');
-const port = process.env.PROT || 3000;
->>>>>>> Stashed changes
+const port = process.env.PORT || 3000;
 const app = express();
-const passport = require("passport");
-
+const passport = require('passport');
+const handlerError = require('./middlewears/handlerError')
 //SERVVICE export
 const products = require("./routes/products");
 const identification = require("./routes/identification");
@@ -35,6 +30,9 @@ app.use("/identification", identification);
 app.use("/statistics", statistics);
 app.use("/exercises", exercises);
 app.use("/diary", diary);
+
+
+app.use(handlerError)
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
