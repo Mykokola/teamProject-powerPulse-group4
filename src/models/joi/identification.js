@@ -7,6 +7,9 @@ const registerSchema = Joi.object().keys({
   name: Joi.string().required(),
   password: passwordJoi,
 });
+const nameSchema = Joi.object().keys({
+  name:Joi.string().required()
+})
 const loginSchema = Joi.object().keys({
   email: emailJoi,
   password: passwordJoi,
@@ -31,4 +34,5 @@ module.exports = {
   registerSchema,
   loginSchema,
   dailyMetricsSchema,
+  nameSchema
 };

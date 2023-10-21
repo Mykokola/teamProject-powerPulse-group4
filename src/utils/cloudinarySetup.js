@@ -1,6 +1,5 @@
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-
 const { CLOINDINARY_SECRET,
     CLOINDINARY_KEY,
     CLOINDINARY_NAME} = require('../constants/env')

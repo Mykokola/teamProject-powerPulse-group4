@@ -11,7 +11,7 @@ router.post("/login",controllers.login)
 //PRIVATE
 router.post("/calculateDailyMetrics",authMiddleware,controllers.calculateDailyMetrics)
 
-router.patch("/upload", uploader.single("avatar"),controllers.upload);
+router.patch("/upload", authMiddleware,uploader.single("avatar"),controllers.upload);
 
 router.get("/currentUser", authMiddleware,controllers.currentUser)
 

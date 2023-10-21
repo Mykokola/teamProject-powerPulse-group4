@@ -110,8 +110,27 @@ const calculateDailyMetrics = async (req, res, next) => {
 };
 const upload = async (req,res,next) => {
   try{
+      const name = req.body
+      const file = req.file
+      let message;
+    //  console.log(validateSchems.nameSchema.validate(name).error)
+      if(validateSchems.nameSchema.validate(name).error&&!file){
+        const error = createError(ERROR_TYPES.BAD_REQUEST,{
+          message:"body is incorrect"
+        })
+        throw error
+      }
+      if(file){
+        
+        console.log(file)
+      }else{
+        const {_id} = req.user
+      await authService.updateClientById(_id,name)
+        message = 'name was update'
+      }
+
     res.status(200).json({
-      message:'hihih'
+      message
     })
   }catch(e){
     next(e)
