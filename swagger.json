@@ -1,0 +1,40 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Power plus",
+      "description": "backend for react app Power plus"
+    },
+    "servers": [
+      {
+        "url": "https://teamproject-powerpulse-group4.onrender.com/"
+      }
+    ],
+    "consumes": [
+        "application/json","multipart/form-data "
+      ],
+      "produces": [
+        "application/json"
+      ],
+    "paths": {
+      "/user": {
+        "get": {
+          "summary": "Get all users",
+          "description": "Returns a list of all users",
+          "responses": {
+            "200": {
+              "description": "A list of users",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
