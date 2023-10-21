@@ -108,6 +108,16 @@ const calculateDailyMetrics = async (req, res, next) => {
     next(e);
   }
 };
+const upload = async (req,res,next) => {
+  try{
+    res.status(200).json({
+      message:'hihih'
+    })
+  }catch(e){
+    next(e)
+  }
+}
+
 const currentUser = async (req, res, next) => {
   try {
     const user = req.user.toObject();
@@ -124,4 +134,5 @@ module.exports = {
   login,
   currentUser,
   calculateDailyMetrics,
+  upload
 };

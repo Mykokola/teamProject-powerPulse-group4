@@ -11,15 +11,7 @@ router.post("/login",controllers.login)
 //PRIVATE
 router.post("/calculateDailyMetrics",authMiddleware,controllers.calculateDailyMetrics)
 
-router.patch("/upload", uploader.single("avatar"), async (req, res,next) => {
-    try{
-        
-        // res.send('File uploaded!');
-        //test GOOGLE CLOUD
-}catch(e){
-        next(e)
-    }
-  });
+router.patch("/upload", uploader.single("avatar"),controllers.upload);
 
 router.get("/currentUser", authMiddleware,controllers.currentUser)
 
