@@ -2,7 +2,7 @@ const passport = require("passport");
 const { Strategy, ExtractJwt } = require("passport-jwt");
 const { JWT_SECRET } = require("../constants/env");
  const userService = require("../services/identification");
-const errorCreater = require("../untils/createError");
+const errorCreater = require("../utils/createError");
  const ERROR_TYPES = require("../constants/ERROR_CODES");
 
 const cookieExtractor = function (req) {

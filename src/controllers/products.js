@@ -1,4 +1,4 @@
-const { ctrlWrapper, HttpError } = require("../untils");
+const { ctrlWrapper, HttpError } = require("../utils");
 const { productsAll, productsAllCategories } = require("../models/mongoose/products");
 
 const getAllProducts = async (req, res) => {
