@@ -105,9 +105,11 @@ const calculateDailyMetrics = async (req, res, next) => {
     );
    await authService.updateClientById(_id, dailyMetricsData);
     const client = await authService.getClientByOptions({_id})
+    const currentUser = client.toObject()
+    delete currentUser.password
     res.status(200).json({
       client:{
-      ...client.toObject(),
+      ...currentUser,
       BMR,
       timeForSport: 110,
       },
