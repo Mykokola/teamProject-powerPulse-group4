@@ -1,7 +1,7 @@
 const { ctrlWrapper } = require("../utils");
 const createError = require("../utils/createError");
 const ERROR_TYPES = require("../constants/ERROR_CODES");
-const { exercisesAll, detailsAll } = require("../models/mongoose/exercises");
+const { exercisesAll } = require("../models/mongoose/exercises");
 
 const getAllExercises = async (req, res) => {
   const exercises = await exercisesAll.find();
@@ -15,14 +15,28 @@ const getAllExercises = async (req, res) => {
 };
 
 const getAlldetails = async (req, res) => {
-  const details = await detailsAll.find();
+  const details = await exercisesAll.find();
   if (!details) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: "Not found",
     });
     throw error;
   }
-  res.json(details);
+  const bodyParts = details.map((obj) => obj.bodyPart);
+  const bodyPartsList = [...new Set(bodyParts)];
+
+  const equipment = details.map((obj) => obj.equipment);
+  const equipmentList = [...new Set(equipment)];
+
+  const muscules = details.map((obj) => obj.target);
+  const musculesList = [...new Set(muscules)];
+
+  const detailsList = {
+    bodyParts: bodyPartsList,
+    equipment: equipmentList,
+    muscules: musculesList,
+  };
+  res.json(detailsList);
 };
 
 module.exports = {
