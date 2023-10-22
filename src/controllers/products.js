@@ -26,7 +26,31 @@ const getAllCategories = async (req, res) => {
   res.json(categories);
 };
 
+const getAvailableProducts = async (req, res, next) => {
+  const restrictedValue = req.params.true.slice(1);
+  // console.log(restrictedValue);
+  // console.log(Boolean(restrictedValue));
+  const user = req.user;
+  const bloodCategory = user.blood;
+  try {
+    let products;
+    if (restrictedValue === "true") {
+      products = await productsAll.find({
+        [`groupBloodNotAllowed.${bloodCategory}`]: true,
+      });
+    } else {
+      products = await productsAll.find({
+        [`groupBloodNotAllowed.${bloodCategory}`]: false,
+      });
+    }
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllProducts: ctrlWrapper(getAllProducts),
   getAllCategories: ctrlWrapper(getAllCategories),
+  getAvailableProducts: ctrlWrapper(getAvailableProducts),
 };
