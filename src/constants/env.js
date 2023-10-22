@@ -3,24 +3,24 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const {
-  CLOINDINARY_SECRET,
-  CLOINDINARY_KEY,
-  CLOINDINARY_NAME,
+  CLOUDINARY_SECRET,
+  CLOUDINARY_KEY,
+  CLOUDINARY_NAME,
   MONGO_DB_USER,
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,
   MONGO_DB_DATABASE,
 } = process.env;
 
-if (!CLOINDINARY_NAME) {
+if (!CLOUDINARY_NAME) {
   throw new Error("Please setup CLOINDINARY_NAME");
 }
 
-if (!CLOINDINARY_KEY) {
+if (!CLOUDINARY_KEY) {
   throw new Error("Please setup CLOINDINARY_KEY");
 }
 
-if (!CLOINDINARY_SECRET) {
+if (!CLOUDINARY_SECRET) {
   throw new Error("Please setup CLOINDINARY_SECRET");
 }
 
@@ -44,7 +44,7 @@ module.exports = {
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,
   MONGO_DB_DATABASE,
-  CLOINDINARY_SECRET,
-  CLOINDINARY_KEY,
-  CLOINDINARY_NAME,
+  CLOUDINARY_SECRET,
+  CLOUDINARY_KEY,
+  CLOUDINARY_NAME,
 };
