@@ -27,8 +27,10 @@ const signup = async (req, res, next) => {
       ...req.body,
       password: hashPassword,
     };
-   const currentUser =   await authService.signup(user);
-    const token = jwt.sign({ sub: currentUser._id }, JWT_SECRET, { expiresIn: 3600 });
+    const currentUser = await authService.signup(user);
+    const token = jwt.sign({ sub: currentUser._id }, JWT_SECRET, {
+      expiresIn: 3600,
+    });
     res.cookie("jwt", token, { secure: true });
     delete user.password;
     res.status(200).json({
@@ -39,6 +41,7 @@ const signup = async (req, res, next) => {
     next(e);
   }
 };
+
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -74,15 +77,16 @@ const login = async (req, res, next) => {
     next(e);
   }
 };
+
 const calculateDailyMetrics = async (req, res, next) => {
   try {
-    const {_id} = req.user
-    const dailyMetricsData = req.body
+    const { _id } = req.user;
+    const dailyMetricsData = req.body;
     if (validateSchems.dailyMetricsSchema.validate(dailyMetricsData).error) {
       const error = createError(ERROR_TYPES.UNAUTHORIZED, {
         message: "body  is incorrect",
       });
-      throw error
+      throw error;
     }
     const lifestyleFactor = { 1: 1.2, 2: 1.375, 3: 1.55, 4: 1.725, 5: 1.9 };
     const { height, birthday, levelActivity, sex, currentWeight } =
@@ -98,30 +102,50 @@ const calculateDailyMetrics = async (req, res, next) => {
         (sex == "female" ? 5 : -161)) *
         lifestyleClientFactor
     );
-      const client = await authService.updateClientById(_id,dailyMetricsData)
+   await authService.updateClientById(_id, dailyMetricsData);
+    const client = await authService.getClientByOptions({_id})
     res.status(200).json({
-      client,
+      client:{
+      ...client.toObject(),
       BMR,
       timeForSport: 110,
+      },
+
     });
   } catch (e) {
     next(e);
   }
 };
-const upload = async (req,res,next) => {
-  try{
-    res.status(200).json({
-      message:'hihih'
-    })
-  }catch(e){
-    next(e)
+
+const upload = async (req, res, next) => {
+  try {
+    const name = req.body;
+    const file = req.file;
+    const { _id } = req.user;
+    let message;
+    if (validateSchems.nameSchema.validate(name).error && !file) {
+      const error = createError(ERROR_TYPES.BAD_REQUEST, {
+        message: "body is incorrect",
+      });
+      throw error;
+    }
+    if (req.body.name) {
+      await authService.updateClientById(_id, name);
+      message = "name was update";
+    } else {
+      const { path } = file;
+      await authService.updateClientById(_id, { avatar: path });
+      message = "avatar was update";
+    }
+    res.status(200).json({ message });
+  } catch (e) {
+    next(e);
   }
-}
+};
 
 const currentUser = async (req, res, next) => {
   try {
-    const user = req.user.toObject();
-    delete user.password;
+    const user = req.user;
     res.status(200).json({
       user,
     });
@@ -129,10 +153,20 @@ const currentUser = async (req, res, next) => {
     next(e);
   }
 };
+
+const logout = async (req,res,next) => {
+  try{
+    res.clearCookie("jwt");
+     res.status(204).json({});
+}catch(e){
+    next(e)
+}
+}
 module.exports = {
   signup,
   login,
   currentUser,
   calculateDailyMetrics,
-  upload
+  upload,
+  logout
 };
