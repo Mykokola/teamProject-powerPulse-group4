@@ -1,10 +1,16 @@
-const { ctrlWrapper, HttpError } = require("../utils");
+const { ctrlWrapper } = require("../utils");
+const createError = require("../utils/createError");
+const ERROR_TYPES = require("../constants/ERROR_CODES");
+
 const { productsAll, productsAllCategories } = require("../models/mongoose/products");
 
 const getAllProducts = async (req, res) => {
   const products = await productsAll.find();
   if (!products) {
-    throw HttpError(404, "Not found");
+    const error = createError(ERROR_TYPES.NOT_FOUND, {
+      message: "Not found",
+    });
+    throw error;
   }
   res.json(products);
 };
@@ -12,7 +18,10 @@ const getAllProducts = async (req, res) => {
 const getAllCategories = async (req, res) => {
   const categories = await productsAllCategories.find();
   if (!categories) {
-    throw HttpError(404, "Not found");
+    const error = createError(ERROR_TYPES.NOT_FOUND, {
+      message: "Not found",
+    });
+    throw error;
   }
   res.json(categories);
 };
