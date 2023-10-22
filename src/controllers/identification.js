@@ -5,7 +5,7 @@ const { JWT_SECRET } = require("../constants/env");
 const jwt = require("jsonwebtoken");
 const validateSchems = require("../models/joi/identification");
 const bcrypt = require("bcrypt");
-
+const cloudinary = require('cloudinary')
 const signup = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -110,29 +110,29 @@ const calculateDailyMetrics = async (req, res, next) => {
 };
 const upload = async (req,res,next) => {
   try{
-      const name = req.body
-      const file = req.file
-      let message;
-    //  console.log(validateSchems.nameSchema.validate(name).error)
-      if(validateSchems.nameSchema.validate(name).error&&!file){
-        const error = createError(ERROR_TYPES.BAD_REQUEST,{
-          message:"body is incorrect"
-        })
-        throw error
-      }
-      if(file){
-        
-        console.log(file)
-      }else{
-        const {_id} = req.user
-      await authService.updateClientById(_id,name)
-        message = 'name was update'
-      }
+    console.log(req.file)
+    cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+  { public_id: "olympic_flag" ,folder: 'avatars',})
+    res.status(200).json({ message: 'File uploaded successfully' });
+      // const name = req.body
+      // const file = req.file
+      // const {_id} = req.user
+      // let message;
+      // if(validateSchems.nameSchema.validate(name).error&&!file){
+      //   const error = createError(ERROR_TYPES.BAD_REQUEST,{
+      //     message:"body is incorrect"
+      //   })
+      //   throw error
+      // }
+      // if(file){
+      //  // cloudinary.uploader.upload(fil)
+      // }else{
+      // await authService.updateClientById(_id,name)
+      //   message = 'name was update'
+      // }
 
-    res.status(200).json({
-      message
-    })
   }catch(e){
+    console.log(e)
     next(e)
   }
 }
