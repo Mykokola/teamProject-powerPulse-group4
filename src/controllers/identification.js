@@ -66,11 +66,12 @@ const login = async (req, res, next) => {
       });
       throw error;
     }
-    delete user.password;
+    const currentUser = user.toObject()
+    delete currentUser.password;
     const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 3600 });
     res.cookie("jwt", token, { secure: true });
     res.status(200).json({
-      user,
+      user:currentUser,
       token,
     });
   } catch (e) {
