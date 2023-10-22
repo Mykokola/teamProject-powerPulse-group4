@@ -5,7 +5,7 @@ const { JWT_SECRET } = require("../constants/env");
 const jwt = require("jsonwebtoken");
 const validateSchems = require("../models/joi/identification");
 const bcrypt = require("bcrypt");
-const cloudinary = require("cloudinary");
+
 const signup = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -41,6 +41,7 @@ const signup = async (req, res, next) => {
     next(e);
   }
 };
+
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -76,6 +77,7 @@ const login = async (req, res, next) => {
     next(e);
   }
 };
+
 const calculateDailyMetrics = async (req, res, next) => {
   try {
     const { _id } = req.user;
@@ -100,16 +102,21 @@ const calculateDailyMetrics = async (req, res, next) => {
         (sex == "female" ? 5 : -161)) *
         lifestyleClientFactor
     );
-    const client = await authService.updateClientById(_id, dailyMetricsData);
+   await authService.updateClientById(_id, dailyMetricsData);
+    const client = await authService.getClientByOptions({_id})
     res.status(200).json({
-      client,
+      client:{
+      ...client.toObject(),
       BMR,
       timeForSport: 110,
+      },
+
     });
   } catch (e) {
     next(e);
   }
 };
+
 const upload = async (req, res, next) => {
   try {
     const name = req.body;
