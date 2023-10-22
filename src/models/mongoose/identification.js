@@ -38,8 +38,6 @@ const clientSchema = new Schema({
         type:Number,
     }
 })
-const DailyMetricsSchema = new Schema({
-   
-})
+
 const clientModel = model('clients',clientSchema)
 module.exports = clientModel
