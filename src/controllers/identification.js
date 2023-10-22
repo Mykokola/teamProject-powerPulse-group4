@@ -145,8 +145,7 @@ const upload = async (req, res, next) => {
 
 const currentUser = async (req, res, next) => {
   try {
-    const user = req.user.toObject();
-    delete user.password;
+    const user = req.user;
     res.status(200).json({
       user,
     });
