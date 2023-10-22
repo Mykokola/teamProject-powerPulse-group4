@@ -3,9 +3,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const {
-  CLOUDINARY_SECRET,
-  CLOUDINARY_KEY,
   CLOUDINARY_NAME,
+  CLOUDINARY_KEY,
+  CLOUDINARY_SECRET,
+
   MONGO_DB_USER,
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,
@@ -53,5 +54,5 @@ module.exports = {
   MONGO_DB_DATABASE,
   CLOUDINARY_SECRET,
   CLOUDINARY_KEY,
-  CLOUDINARY_SECRET,
+  CLOUDINARY_NAME,
 };
