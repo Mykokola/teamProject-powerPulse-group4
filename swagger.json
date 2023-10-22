@@ -175,8 +175,38 @@
             "description": "A list of exersices",
             "content": {
               "application/json": {
+                "example": "[{\"_id\":\"12345\", \"bodyPart\":\"chest\", \"equipment\":\"leverage machine\", \"gifUrl\":\"https://ftp.goit.study/img/power-pulse/gifs/0009.gif\", \"name\":\"assisted chest dip (kneeling)\", \"target\":\"pectorals\", \"burnedCalories\":329, \"time\":3}]",
                 "schema": {
-                  "type": "string"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "bodyPart": {
+                        "type": "string"
+                      },
+                      "equipment": {
+                        "type": "string"
+                      },
+                      "gifUrl": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "burnedCalories": {
+                        "type": "integer"
+                      },
+                      "time": {
+                        "type": "integer"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -186,6 +216,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": "Not Found",
                   "type": "string"
                 }
               }
@@ -204,7 +235,30 @@
             "description": "A list of users",
             "content": {
               "application/json": {
+                "example": "{\"bodyParts\":[\"chest\",\"upper legs\"], \"equipment\":[\"leverage machine\",\"barbell\"], \"muscules\":[\"pectorals\",\"quads\"]}",
                 "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "Not Found",
                   "type": "string"
                 }
               }
