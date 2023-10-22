@@ -15,7 +15,7 @@ router.patch("/upload", authMiddleware,upload.single('avatar'),controllers.uploa
 
 router.get("/currentUser", authMiddleware,controllers.currentUser)
 
-router.post("/logout",)
+router.post("/logout",authMiddleware,controllers.logout)
 //PRIVATE
 
 module.exports = router

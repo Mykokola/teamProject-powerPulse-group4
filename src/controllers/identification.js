@@ -5,7 +5,7 @@ const { JWT_SECRET } = require("../constants/env");
 const jwt = require("jsonwebtoken");
 const validateSchems = require("../models/joi/identification");
 const bcrypt = require("bcrypt");
-const cloudinary = require('cloudinary')
+const cloudinary = require("cloudinary");
 const signup = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -27,8 +27,10 @@ const signup = async (req, res, next) => {
       ...req.body,
       password: hashPassword,
     };
-   const currentUser =   await authService.signup(user);
-    const token = jwt.sign({ sub: currentUser._id }, JWT_SECRET, { expiresIn: 3600 });
+    const currentUser = await authService.signup(user);
+    const token = jwt.sign({ sub: currentUser._id }, JWT_SECRET, {
+      expiresIn: 3600,
+    });
     res.cookie("jwt", token, { secure: true });
     delete user.password;
     res.status(200).json({
@@ -76,13 +78,13 @@ const login = async (req, res, next) => {
 };
 const calculateDailyMetrics = async (req, res, next) => {
   try {
-    const {_id} = req.user
-    const dailyMetricsData = req.body
+    const { _id } = req.user;
+    const dailyMetricsData = req.body;
     if (validateSchems.dailyMetricsSchema.validate(dailyMetricsData).error) {
       const error = createError(ERROR_TYPES.UNAUTHORIZED, {
         message: "body  is incorrect",
       });
-      throw error
+      throw error;
     }
     const lifestyleFactor = { 1: 1.2, 2: 1.375, 3: 1.55, 4: 1.725, 5: 1.9 };
     const { height, birthday, levelActivity, sex, currentWeight } =
@@ -98,7 +100,7 @@ const calculateDailyMetrics = async (req, res, next) => {
         (sex == "female" ? 5 : -161)) *
         lifestyleClientFactor
     );
-      const client = await authService.updateClientById(_id,dailyMetricsData)
+    const client = await authService.updateClientById(_id, dailyMetricsData);
     res.status(200).json({
       client,
       BMR,
@@ -108,34 +110,31 @@ const calculateDailyMetrics = async (req, res, next) => {
     next(e);
   }
 };
-const upload = async (req,res,next) => {
-  try{
-    console.log(req.file)
-    cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-  { public_id: "olympic_flag" ,folder: 'avatars',})
-    res.status(200).json({ message: 'File uploaded successfully' });
-      // const name = req.body
-      // const file = req.file
-      // const {_id} = req.user
-      // let message;
-      // if(validateSchems.nameSchema.validate(name).error&&!file){
-      //   const error = createError(ERROR_TYPES.BAD_REQUEST,{
-      //     message:"body is incorrect"
-      //   })
-      //   throw error
-      // }
-      // if(file){
-      //  // cloudinary.uploader.upload(fil)
-      // }else{
-      // await authService.updateClientById(_id,name)
-      //   message = 'name was update'
-      // }
-
-  }catch(e){
-    console.log(e)
-    next(e)
+const upload = async (req, res, next) => {
+  try {
+    const name = req.body;
+    const file = req.file;
+    const { _id } = req.user;
+    let message;
+    if (validateSchems.nameSchema.validate(name).error && !file) {
+      const error = createError(ERROR_TYPES.BAD_REQUEST, {
+        message: "body is incorrect",
+      });
+      throw error;
+    }
+    if (req.body.name) {
+      await authService.updateClientById(_id, name);
+      message = "name was update";
+    } else {
+      const { path } = file;
+      await authService.updateClientById(_id, { avatar: path });
+      message = "avatar was update";
+    }
+    res.status(200).json({ message });
+  } catch (e) {
+    next(e);
   }
-}
+};
 
 const currentUser = async (req, res, next) => {
   try {
@@ -148,10 +147,20 @@ const currentUser = async (req, res, next) => {
     next(e);
   }
 };
+
+const logout = async (req,res,next) => {
+  try{
+    res.clearCookie("jwt");
+     res.status(204).json({});
+}catch(e){
+    next(e)
+}
+}
 module.exports = {
   signup,
   login,
   currentUser,
   calculateDailyMetrics,
-  upload
+  upload,
+  logout
 };
