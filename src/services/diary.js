@@ -32,10 +32,20 @@ const addInDiaryExercise = async (_id,data) => {
     )
     return updateClient
 }
+
+const deleteInDiaryProduct = async (_id,data) => {
+    const deleteClient = await dairyModel.findOneAndUpdate(
+        {clientId:_id},
+        {$pull:{consumedProduct:data}},
+      { upsert: true, new: true}
+    )
+    return deleteClient
+}
 module.exports = {
     createDiary,
     findDiaryByOption,
     updateById,
     addInDiaryProduct,
-    addInDiaryExercise
+    addInDiaryExercise,
+    deleteInDiaryProduct
 }
