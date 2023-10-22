@@ -15,6 +15,7 @@ const dairySchema = new Schema({
         
 })
 
-const dairyModel = model('dairy',dairySchema)
+const dairyModel = model('dairyClients',dairySchema)
 
-module.exports = dairyModel
+
+module.exports = {dairyModel}
