@@ -1,34 +1,83 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "Power plus",
-      "description": "backend for react app Power plus"
-    },
-    "servers": [
-      {
-        "url": "https://teamproject-powerpulse-group4.onrender.com/"
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Power plus",
+    "description": "backend for react app Power plus"
+  },
+  "servers": [
+    {
+      "url": "https://teamproject-powerpulse-group4.onrender.com/"
+    }
+  ],
+  "consumes": ["application/json", "multipart/form-data "],
+  "produces": ["application/json"],
+  "tags": [
+    {
+      "name": "Exercises",
+      "description": "Exercises endpoints"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "summary": "Get all users",
+        "description": "Returns a list of all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
-    ],
-    "consumes": [
-        "application/json","multipart/form-data "
-      ],
-      "produces": [
-        "application/json"
-      ],
-    "paths": {
-      "/user": {
-        "get": {
-          "summary": "Get all users",
-          "description": "Returns a list of all users",
-          "responses": {
-            "200": {
-              "description": "A list of users",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "string"
-                  }
+    },
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get list of exersices",
+        "description": "Returns a list of all exersices",
+        "responses": {
+          "200": {
+            "description": "A list of exersices",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exercises/all-types": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get list of bodyparts, muscules, equipments",
+        "description": "Returns a list of all bodyparts, muscules, equipments",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -37,4 +86,4 @@
       }
     }
   }
-  
+}
