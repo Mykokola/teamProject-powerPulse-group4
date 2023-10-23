@@ -14,8 +14,8 @@
   "produces": ["application/json"],
   "tags": [
     {
-      "name": "Users",
-      "description": "Users endpoints"
+      "name":"Identification",
+      "description":"User identification"
     },
     {
       "name": "Products",
@@ -25,23 +25,465 @@
       "name": "Exercises",
       "description": "Exercises endpoints"
     }
+
   ],
   "paths": {
-    "/identification/signup":{
-      "post":{
-        "tags":["identification"],
-        "summary":"Signup user",
-        "description":"Returns user{} and token",
-        "responses":{
-          "200":{
-            "description":"signup user",
-            "content":{
-              
+      "/identification/signup": {
+        "post": {
+          "tags": ["Identification"],
+          "summary": " user signup",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "successful signup",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "token": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/identification/login": {
+        "post": {
+          "tags": ["Identification"],
+          "summary": "user login",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "successful login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "_id": {
+                            "type": "string"
+                          },
+                          "_v": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "token": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/identification/calculateDailyMetrics": {
+        "post": {
+          "tags": ["Identification"],
+          "summary": "count BMR",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "height": {
+                      "type": "number"
+                    },
+                    "currentWeight": {
+                      "type": "number"
+                    },
+                    "desiredWeight": {
+                      "type": "number"
+                    },
+                    "birthday": {
+                      "type": "string"
+                    },
+                    "blood": {
+                      "type": "number"
+                    },
+                    "sex": {
+                      "type": "string"
+                    },
+                    "levelActivity": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "calculated BMR",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "client": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "_id": {
+                            "type": "string"
+                          },
+                          "_v": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "currentWeight": {
+                            "type": "number"
+                          },
+                          "desiredWeight": {
+                            "type": "number"
+                          },
+                          "birthday": {
+                            "type": "string"
+                          },
+                          "blood": {
+                            "type": "number"
+                          },
+                          "sex": {
+                            "type": "string"
+                          },
+                          "levelActivity": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Не знайдено",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "The token issued to the current user.",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      }
+    ,
+    "/identification/upload": {
+      "patch": {
+        "tags": ["Identification"],
+        "summary": "upload name or avatar",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "oneOf": [
+                  {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "avatar": {
+                        "type": "string",
+                        "format": "binary"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "update name or avatar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "object": null
+                    },
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+    ,
+    "/identification/currentUser": {
+      "get": {
+        "tags": ["Identification"],
+        "summary": "get current user",
+        "responses": {
+          "200": {
+            "description": "current user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "_v": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "currentWeight": {
+                          "type": "number"
+                        },
+                        "desiredWeight": {
+                          "type": "number"
+                        },
+                        "birthday": {
+                          "type": "string"
+                        },
+                        "blood": {
+                          "type": "number"
+                        },
+                        "sex": {
+                          "type": "string"
+                        },
+                        "levelActivity": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+    ,
+    "/identification/logout": {
+      "post": {
+        "tags": ["Identification"],
+        "summary": "logout user",
+        "responses": {
+          "200": {
+            "description": "logout user",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
-    },
+    }
+    ,
     "/products": {
       "get": {
         "tags": ["Products"],
@@ -113,6 +555,8 @@
         }
       }
     },
+
+    
     "/products/categories": {
       "get": {
         "tags": ["Products"],
@@ -265,3 +709,4 @@
     }
   }
 }
+
