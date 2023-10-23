@@ -1,10 +1,9 @@
 const { ctrlWrapper } = require("../utils");
 const createError = require("../utils/createError");
 const ERROR_TYPES = require("../constants/ERROR_CODES");
-const { exercisesAll } = require("../models/mongoose/exercises");
-
+const exerciseService = require("../services/exercises")
 const getAllExercises = async (req, res) => {
-  const exercises = await exercisesAll.find();
+  const exercises = await exerciseService.getAllExercises();
   if (!exercises) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: "Not found",
@@ -15,7 +14,7 @@ const getAllExercises = async (req, res) => {
 };
 
 const getAlldetails = async (req, res) => {
-  const details = await exercisesAll.find();
+  const details =  await exerciseService.getAllExercises()
   if (!details) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: "Not found",
