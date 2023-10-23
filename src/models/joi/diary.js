@@ -11,4 +11,7 @@ const exercisePattern = Joi.object().keys({
     time:Joi.number().min(1).required(),
     calories:Joi.number().min(1).required()
 })
-module.exports = {productPattern,exercisePattern}
+const datePattern = Joi.object().keys({
+    date:Joi.date().max('now').iso().required()
+})
+module.exports = {productPattern,exercisePattern,datePattern}
