@@ -3,11 +3,9 @@ const createError = require("../utils/createError");
 const ERROR_TYPES = require("../constants/ERROR_CODES");
 const productService = require("../services/products");
 
-// const { productsAll, productsAllCategories } = require("../models/mongoose/products");
 
 const getAllProducts = async (req, res, next) => {
   try {
-    // const products = await productsAll.find();
     const products = await productService.allProducts();
     if (!products) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
@@ -23,7 +21,6 @@ const getAllProducts = async (req, res, next) => {
 
 const getAllCategories = async (req, res, next) => {
   try {
-    // const categories = await productsAllCategories.find();
     const categories = await productService.allCategories();
 
     if (!categories) {
