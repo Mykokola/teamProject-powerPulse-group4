@@ -10,6 +10,7 @@ const {
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,
   MONGO_DB_DATABASE,
+  JWT_SECRET
 } = process.env;
 
 if (!CLOUDINARY_NAME) {
@@ -40,6 +41,7 @@ if (!MONGO_DB_DATABASE) {
 }
 
 module.exports = {
+  JWT_SECRET,
   MONGO_DB_USER,
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,

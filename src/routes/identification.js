@@ -1,24 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const uploader = require("../middlewears/multer");
-router.post("/signup",)
-router.post("/login", )
+const upload = require("../middlewears/multer");
+const controllers = require('../controllers/identification')
+const authMiddleware = require('../middlewears/authMiddleware')
+
+
+router.post("/signup",controllers.signup)
+
+router.post("/login",controllers.login)
 //PRIVATE
-router.post("/calculateDailyMetrics",)
+router.post("/calculateDailyMetrics",authMiddleware,controllers.calculateDailyMetrics)
 
-router.patch("/upload", uploader.single("avatar"), async (req, res,next) => {
-    try{
-        
-        // res.send('File uploaded!');
-        //test GOOGLE CLOUD
-}catch(e){
-        next(e)
-    }
-  });
+router.patch("/upload", authMiddleware,upload.single('avatar'),controllers.upload);
 
-router.get("/currentUser", )
+router.get("/currentUser", authMiddleware,controllers.currentUser)
 
-router.post("/logout",)
+router.post("/logout",authMiddleware,controllers.logout)
 //PRIVATE
 
 module.exports = router

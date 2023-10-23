@@ -1,34 +1,265 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "Power plus",
-      "description": "backend for react app Power plus"
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Power plus",
+    "description": "backend for react app Power plus"
+  },
+  "servers": [
+    {
+      "url": "https://teamproject-powerpulse-group4.onrender.com/"
+    }
+  ],
+  "consumes": ["application/json", "multipart/form-data "],
+  "produces": ["application/json"],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Users endpoints"
     },
-    "servers": [
-      {
-        "url": "https://teamproject-powerpulse-group4.onrender.com/"
+    {
+      "name": "Products",
+      "description": "Products endpoints"
+    },
+    {
+      "name": "Exercises",
+      "description": "Exercises endpoints"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "description": "Returns a list of all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
-    ],
-    "consumes": [
-        "application/json","multipart/form-data "
-      ],
-      "produces": [
-        "application/json"
-      ],
-    "paths": {
-      "/user": {
-        "get": {
-          "summary": "Get all users",
-          "description": "Returns a list of all users",
-          "responses": {
-            "200": {
-              "description": "A list of users",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "string"
+    },
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get list of products",
+        "description": "Returns a list of all products",
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "content": {
+              "application/json": {
+                "example": "[{\"_id\":\"12345\", \"weight\":\"100\", \"calories\":\"340\", \"category\":\"dairy\",  \"title\":\"Danbo cheese\", \"groupBloodNotAllowed\":{\"1\":\"true\",\"2\":\"true\",\"3\":\"true\",\"4\":\"true\"}}]",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "weight": {
+                        "type": "string"
+                      },
+                      "calories": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "groupBloodNotAllowed": {
+                        "type": "object",
+                        "properties": {
+                          "1": {
+                            "type": "string"
+                          },
+                          "2": {
+                            "type": "string"
+                          },
+                          "3": {
+                            "type": "string"
+                          },
+                          "4": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": "Not Found",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/categories": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get list of products categories",
+        "description": "Returns a list of all products categories",
+        "responses": {
+          "200": {
+            "description": "A list of products categories",
+            "content": {
+              "application/json": {
+                "example": "[{\"_id\":\"12345\", \"name\":\"productsCategories\", \"items\":[\"alcoholic drinks\",\"berries\"]}]",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": "Not Found",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get list of exersices",
+        "description": "Returns a list of all exersices",
+        "responses": {
+          "200": {
+            "description": "A list of exersices",
+            "content": {
+              "application/json": {
+                "example": "[{\"_id\":\"12345\", \"bodyPart\":\"chest\", \"equipment\":\"leverage machine\", \"gifUrl\":\"https://ftp.goit.study/img/power-pulse/gifs/0009.gif\", \"name\":\"assisted chest dip (kneeling)\", \"target\":\"pectorals\", \"burnedCalories\":329, \"time\":3}]",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "bodyPart": {
+                        "type": "string"
+                      },
+                      "equipment": {
+                        "type": "string"
+                      },
+                      "gifUrl": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "burnedCalories": {
+                        "type": "integer"
+                      },
+                      "time": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "Not Found",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exercises/all-types": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get list of bodyparts, muscules, equipments",
+        "description": "Returns a list of all bodyparts, muscules, equipments",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "example": "{\"bodyParts\":[\"chest\",\"upper legs\"], \"equipment\":[\"leverage machine\",\"barbell\"], \"muscules\":[\"pectorals\",\"quads\"]}",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "Not Found",
+                  "type": "string"
                 }
               }
             }
@@ -37,4 +268,4 @@
       }
     }
   }
-  
+}
