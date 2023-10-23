@@ -44,7 +44,7 @@ const getAvailableProducts = async (req, res, next) => {
 
     if (restrictedValue === "" || (restrictedValue !== "true" && restrictedValue !== "false")) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
-        message: "Not found",
+        message: "Incorrect path value",
       });
       throw error;
     }
