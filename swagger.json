@@ -27,20 +27,16 @@
     }
   ],
   "paths": {
-    "/user": {
-      "get": {
-        "tags": ["Users"],
-        "summary": "Get all users",
-        "description": "Returns a list of all users",
-        "responses": {
-          "200": {
-            "description": "A list of users",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
+    "/identification/signup":{
+      "post":{
+        "tags":["identification"],
+        "summary":"Signup user",
+        "description":"Returns user{} and token",
+        "responses":{
+          "200":{
+            "description":"signup user",
+            "content":{
+              
             }
           }
         }
