@@ -3,20 +3,15 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const {
-  CLOUDINARY_NAME,
-  CLOUDINARY_KEY,
   CLOUDINARY_SECRET,
+  CLOUDINARY_KEY,
+  CLOUDINARY_NAME,
   MONGO_DB_USER,
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,
   MONGO_DB_DATABASE,
   JWT_SECRET
 } = process.env;
-
-if(!JWT_SECRET){
-  throw new Error('Please setup JWT_SECRET')
-}
-
 
 if (!CLOUDINARY_NAME) {
   throw new Error("Please setup CLOINDINARY_NAME");
@@ -51,7 +46,7 @@ module.exports = {
   MONGO_DB_PASSWORD,
   MONGO_DB_HOST,
   MONGO_DB_DATABASE,
-  CLOUDINARY_NAME,
-  CLOUDINARY_KEY,
   CLOUDINARY_SECRET,
+  CLOUDINARY_KEY,
+  CLOUDINARY_NAME,
 };
