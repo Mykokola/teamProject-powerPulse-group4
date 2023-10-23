@@ -123,11 +123,11 @@ const deleteExercise = async (req, res, next) => {
 };
 const dairyDateInfo = async (req, res, next) => {
   try {
-    const optional = req.params;
+    const option = req.params;
     const { _id } = req.user;
-    if (validateSchema.datePattern.validate(optional).error) {
+    if (validateSchema.datePattern.validate(option).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "body is incorrect",
+        message: "options is incorrect",
       });
       throw error;
     }
@@ -136,10 +136,10 @@ const dairyDateInfo = async (req, res, next) => {
     });
     currentClientDiary.consumedProduct =
       currentClientDiary.consumedProduct.filter(
-        (elem) => elem.date == optional.date
+        (elem) => elem.date == option.date
       );
     currentClientDiary.exerciseDone = currentClientDiary.exerciseDone.filter(
-      (elem) => elem.date == optional.date
+      (elem) => elem.date == option.date
     );
     res.status(200).json({
       dairy: currentClientDiary,
