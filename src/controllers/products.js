@@ -4,18 +4,22 @@ const ERROR_TYPES = require("../constants/ERROR_CODES");
 
 const { productsAll, productsAllCategories } = require("../models/mongoose/products");
 
-const getAllProducts = async (req, res) => {
-  const products = await productsAll.find();
+const getAllProducts = async (req, res,next) => {
+  try{
+  const products = undefined;
   if (!products) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: "Not found",
     });
     throw error;
   }
-  res.json(products);
+  res.json(products);}catch(e){
+    next(e)
+  }
 };
 
-const getAllCategories = async (req, res) => {
+const getAllCategories = async (req, res,next) => {
+  try{
   const categories = await productsAllCategories.find();
   if (!categories) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
@@ -24,16 +28,16 @@ const getAllCategories = async (req, res) => {
     throw error;
   }
   res.json(categories);
+}catch(e){
+  next(e)
+}
 };
 
 const getAvailableProducts = async (req, res, next) => {
+  try {
   const restrictedValue = req.params.type;
-
-  // console.log(restrictedValue);
-  // console.log(Boolean(restrictedValue));
   const user = req.user;
   const bloodCategory = user.blood;
-  try {
     let products;
     if (restrictedValue === "true") {
       products = await productsAll.find({
