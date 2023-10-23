@@ -18,8 +18,9 @@ const saveProduct = async (req,res,next) => {
             let date = new Date().toISOString().split('T')[0]
             product.date = date
         }
-      await diaryService.addInDiaryProduct(_id,{...product,id:nanoid()})
 
+      await diaryService.addInDiaryProduct(_id,{...product,id:nanoid()})
+        console.log(nanoid())
         res.status(200).json({message:'product was add'})
     }catch(e){
         next(e)
@@ -56,10 +57,26 @@ const deleteProduct = async (req,res,next) => {
             })
             throw error
         }
-       const deleteProduct =  await diaryService.deleteInDiaryProduct(_id,productId)
-        console.log(deleteProduct)
+        const currentClient  =   (await diaryService.currentClientDiary({clientId:_id})).toObject()
+        const productCheck = currentClient.consumedProduct.some(elem => elem.id === productId);
+        const {id} = currentClient
+        if(!productCheck){
+            const error = createError(ERROR_TYPES.NOT_FOUND,{
+                message:'this product is not in consumedProduct'
+            })
+            throw error
+        }
+         await diaryService.deleteInDiaryProduct(_id,id)
 
         res.status(200).json({})
+    }catch(e){
+        next(e)
+    }
+}
+
+const deleteExercise = async (req,res,next) => {
+    try{
+
     }catch(e){
         next(e)
     }
@@ -67,5 +84,6 @@ const deleteProduct = async (req,res,next) => {
 module.exports = {
     saveProduct,
     saveExercise,
-    deleteProduct
+    deleteProduct,
+    deleteExercise
 }
