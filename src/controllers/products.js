@@ -27,7 +27,8 @@ const getAllCategories = async (req, res) => {
 };
 
 const getAvailableProducts = async (req, res, next) => {
-  const restrictedValue = req.params.true.slice(1);
+  const restrictedValue = req.params.type;
+
   // console.log(restrictedValue);
   // console.log(Boolean(restrictedValue));
   const user = req.user;

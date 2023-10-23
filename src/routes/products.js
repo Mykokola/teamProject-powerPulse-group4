@@ -7,7 +7,7 @@ const authMiddleware = require("../middlewears/authMiddleware");
 //PRIVATE
 router.get("/", authMiddleware, ctrl.getAllProducts);
 router.get("/categories", authMiddleware, ctrl.getAllCategories);
-router.get("/available-blood-products/:true", authMiddleware, ctrl.getAvailableProducts); //:true or false
+router.get("/available-blood-products/:type", authMiddleware, ctrl.getAvailableProducts); //:true or false
 
 //PRIVATE
 module.exports = router;
