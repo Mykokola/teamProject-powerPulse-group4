@@ -5,6 +5,11 @@ const allProducts = async () => {
   return products;
 };
 
+const getProductById = async (_id) => {
+  const product = await productsAll.find(_id)
+  return product[0]
+}
+
 const allProductsBloodSearch = async (searchParams) => {
   const products = await productsAll.find(searchParams);
   return products;
@@ -19,4 +24,5 @@ module.exports = {
   allProducts,
   allProductsBloodSearch,
   allCategories,
+  getProductById
 };

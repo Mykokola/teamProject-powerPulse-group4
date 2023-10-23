@@ -1,5 +1,7 @@
 const createError = require("../utils/createError");
 const diaryService = require("../services/diary");
+const productService = require("../services/products")
+const exerciseService = require("../services/exercises")
 const ERROR_TYPES = require("../constants/ERROR_CODES");
 const validateSchema = require("../models/joi/diary");
 const { nanoid } = require("nanoid");
@@ -17,6 +19,13 @@ const saveProduct = async (req, res, next) => {
     if (!product.date) {
       let date = new Date().toISOString().split("T")[0];
       product.date = date;
+    }
+    const productFromBd = await productService.getProductById({_id:product.product})
+    if(!productFromBd){
+      const error = createError(ERROR_TYPES.NOT_FOUND,{
+        message:"product is not a found"
+      })
+      throw error
     }
     await diaryService.addInDiaryProduct(_id, { ...product, id: nanoid() });
 
@@ -38,6 +47,13 @@ const saveExercise = async (req, res, next) => {
     if (!exercise.date) {
       let date = new Date().toISOString().split("T")[0];
       exercise.date = date;
+    }
+    const exerciseFromBd = await exerciseService.getExerciseById({_id:exercise.exercise})
+    if(!exerciseFromBd){
+      const error = createError(ERROR_TYPES.NOT_FOUND,{
+        message:"exercise is not a found"
+      })
+      throw error
     }
     await diaryService.addInDiaryExercise(_id, { ...exercise, id: nanoid() });
     res.status(200).json({ message: "exercise was add" });
