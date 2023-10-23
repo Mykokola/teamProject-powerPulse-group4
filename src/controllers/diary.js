@@ -7,6 +7,7 @@ const {nanoid} = require('nanoid')
 const saveProduct = async (req,res,next) => {
     try{
         const product = req.body
+        const {product:productId} = product
         const {_id} = req.user
         if(validateSchema.productPattern.validate(product).error){
             const error = createError(ERROR_TYPES.BAD_REQUEST,{
@@ -18,9 +19,19 @@ const saveProduct = async (req,res,next) => {
             let date = new Date().toISOString().split('T')[0]
             product.date = date
         }
-
-      await diaryService.addInDiaryProduct(_id,{...product,id:nanoid()})
-        console.log(nanoid())
+        const clientDairy = await diaryService.currentClientDiary({clientId:_id})
+        const productInBd  =   clientDairy?.toObject().consumedProduct.find(elem => {
+           return elem.product === productId && elem.date === product.date
+        } );
+        if(!productInBd){
+            await diaryService.addInDiaryProduct(_id,{...product,id:nanoid()})
+        }else{
+            product.amount =   product.amount + productInBd.amount
+            product.calories = product.calories + productInBd.calories
+            product.id = productInBd.id
+            await diaryService.updateInDiaryProduct(clientDairy.clientId,product.id,product)
+            // console.log(productInBd)
+        }
         res.status(200).json({message:'product was add'})
     }catch(e){
         next(e)

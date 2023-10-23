@@ -24,6 +24,16 @@ const addInDiaryProduct = async (_id,data) => {
     return updateClient
 }
 
+const updateInDiaryProduct = async (clientId, productId, updatedData) => {
+    const updateClient = await dairyModel.findOneAndUpdate(
+      { clientId: clientId, 'consumedProduct.id': productId }, // Знайдіть елемент з вказаним _id
+      { $set: { 'consumedProduct.$': updatedData } }, // Оновіть елемент масиву exerciseDone
+      { new: true }
+    );
+    console.log(updateClient)
+    return updateClient;
+  };
+
 const addInDiaryExercise = async (_id,data) => {
     const updateClient = await dairyModel.findOneAndUpdate(
         {clientId:_id},
@@ -49,5 +59,6 @@ module.exports = {
     addInDiaryProduct,
     addInDiaryExercise,
     deleteInDiaryProduct,
-    currentClientDiary
+    currentClientDiary,
+    updateInDiaryProduct
 }
