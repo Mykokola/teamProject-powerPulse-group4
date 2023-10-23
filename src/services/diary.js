@@ -44,12 +44,21 @@ const addInDiaryExercise = async (_id,data) => {
 }
 
 const deleteInDiaryProduct = async (_id,data) => {
-    const deleteClient = await dairyModel.findOneAndUpdate(
+    const deleteProduct = await dairyModel.findOneAndUpdate(
         {clientId:_id},
         {$pull:{consumedProduct:{id:data}}},
       { upsert: true, new: true}
     )
-    return deleteClient
+    return deleteProduct
+}
+
+const deleteDiaryExercise = async (_id,data) => {
+  const deleteExercise = await dairyModel.findOneAndUpdate(
+    {clientId:_id},
+    {$pull:{exerciseDone:{id:data}}},
+  { upsert: true, new: true}
+  )
+  return deleteExercise
 }
 
 
@@ -60,5 +69,6 @@ module.exports = {
     addInDiaryExercise,
     deleteInDiaryProduct,
     currentClientDiary,
-    updateInDiaryProduct
+    updateInDiaryProduct,
+    deleteDiaryExercise
 }

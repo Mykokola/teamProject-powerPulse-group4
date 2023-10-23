@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewears/authMiddleware')
 router.post('/save-product',authMiddleware,controllers.saveProduct)
 router.post('/save-exercise',authMiddleware,controllers.saveExercise)
 router.delete('/delete-product/:productId',authMiddleware,controllers.deleteProduct)
-router.delete('/delete-exercise/:exercise',authMiddleware)
+router.delete('/delete-exercise/:exerciseId',authMiddleware,controllers.deleteExercise)
 router.get('/info',authMiddleware)
 //PRIVATE
 

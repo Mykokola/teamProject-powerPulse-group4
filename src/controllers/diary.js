@@ -5,12 +5,13 @@ const validateSchema = require('../models/joi/diary')
 const {nanoid} = require('nanoid')
 
 const saveProduct = async (req,res,next) => {
+    
     try{
         const product = req.body
         const {_id} = req.user
         if(validateSchema.productPattern.validate(product).error){
             const error = createError(ERROR_TYPES.BAD_REQUEST,{
-                message:'bady is incorrect'
+                message:'body is incorrect'
             })
             throw error
         }
@@ -26,12 +27,13 @@ const saveProduct = async (req,res,next) => {
     }
 }
 const saveExercise = async (req,res,next) => {
+    
     try{
         const exercise = req.body
         const {_id} = req.user
         if(validateSchema.exercisePattern.validate(exercise).error){
             const error = createError(ERROR_TYPES.BAD_REQUEST,{
-                message:'bady is incorrect'
+                message:'body is incorrect'
             })
             throw error
         }
@@ -74,7 +76,25 @@ const deleteProduct = async (req,res,next) => {
 
 const deleteExercise = async (req,res,next) => {
     try{
+        const {exerciseId} = req.params
+        const {_id} = req.user
+        if(!exerciseId){
+            const error = createError(ERROR_TYPES.BAD_REQUEST,{
+                message:'path is incorrect'
+            })
+            throw error
+        }
+        const currentClient  =   (await diaryService.currentClientDiary({clientId:_id})).toObject()
+        const exerciseCheck = currentClient.exerciseDone.some(elem => elem.id === exerciseId);
+        if(!exerciseCheck){
+            const error = createError(ERROR_TYPES.NOT_FOUND,{
+                message:'this exercise is not in exerciseDone'
+            })
+            throw error
+        }
+     await diaryService.deleteDiaryExercise(_id,exerciseId)        
 
+        res.status(200).json({message:'exercise was delete'})
     }catch(e){
         next(e)
     }
