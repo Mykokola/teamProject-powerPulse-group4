@@ -12,7 +12,7 @@ const saveProduct = async (req, res, next) => {
     const { _id } = req.user;
     if (validateSchema.productPattern.validate(product).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "body is incorrect",
+        message: validateSchema.productPattern.validate(product).error.details[0].message,
       });
       throw error;
     }
@@ -40,7 +40,7 @@ const saveExercise = async (req, res, next) => {
     const { _id } = req.user;
     if (validateSchema.exercisePattern.validate(exercise).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "body is incorrect",
+        message: validateSchema.productPattern.validate(product).error.details[0].message,
       });
       throw error;
     }
@@ -68,7 +68,7 @@ const deleteProduct = async (req, res, next) => {
     const { _id } = req.user;
     if (!productId) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "path is incorrect",
+        message: validateSchema.productPattern.validate(product).error.details[0].message,
       });
       throw error;
     }
@@ -98,7 +98,7 @@ const deleteExercise = async (req, res, next) => {
     const { _id } = req.user;
     if (!exerciseId) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "path is incorrect",
+        message: validateSchema.productPattern.validate(product).error.details[0].message,
       });
       throw error;
     }
@@ -127,7 +127,7 @@ const dairyDateInfo = async (req, res, next) => {
     const { _id } = req.user;
     if (validateSchema.datePattern.validate(option).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "options is incorrect",
+        message: validateSchema.productPattern.validate(product).error.details[0].message,
       });
       throw error;
     }

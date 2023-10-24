@@ -15,9 +15,9 @@ const loginSchema = Joi.object().keys({
   password: passwordJoi,
 });
 const dailyMetricsSchema = Joi.object().keys({
-  height: Joi.number().min(150).required(),
-  currentWeight: Joi.number().min(35).required(),
-  desiredWeight: Joi.number().min(35).required(),
+  height: Joi.number().integer().strict().min(150).required(),
+  currentWeight: Joi.number().integer().strict().min(35).required(),
+  desiredWeight: Joi.number().integer().strict().min(35).required(),
   birthday: Joi.date().max('now').iso().required().raw()
     .custom((value, helpers) => {
       const diff = Date.now() - value.getTime();
@@ -26,9 +26,9 @@ const dailyMetricsSchema = Joi.object().keys({
       }
       return value;
     }),
-  blood: Joi.number().valid(1, 2, 3, 4).required(),
+  blood: Joi.number().integer().strict().valid(1, 2, 3, 4).required(),
   sex: Joi.string().valid("male", "female").required(),
-  levelActivity: Joi.number().valid(1, 2, 3, 4, 5).required(),
+  levelActivity: Joi.number().integer().strict().valid(1, 2, 3, 4, 5).required(),
 });
 module.exports = {
   registerSchema,
