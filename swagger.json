@@ -879,7 +879,7 @@
     "/diary/save-product": {
       "post": {
         "tags": ["Diary"],
-        "summary": "save product",
+        "summary": "Save product",
         "requestBody": {
           "content": {
             "application/json": {
@@ -894,22 +894,37 @@
                   },
                   "calories": {
                     "type": "number"
-                  },
-                  "date": {
-                    "type": "string"
                   }
                 },
                 "required": ["product", "amount", "calories"],
-                "additionalProperties": false
+                "example": {
+                  "product": "5d51694902b2373622ff5773",
+                  "amount": 250,
+                  "calories": 100
+                }
               }
             }
           }
         },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "save product",
+            "description": "Save diary product",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "product was add"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -922,9 +937,12 @@
             }
           },
           "404": {
-            "description": "Не знайдено",
+            "description": "Not found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -949,7 +967,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "exercise": {
+                  "exersice": {
                     "type": "string"
                   },
                   "time": {
@@ -957,22 +975,37 @@
                   },
                   "calories": {
                     "type": "number"
-                  },
-                  "date": {
-                    "type": "string"
                   }
                 },
-                "required": ["exercise", "time", "calories"],
-                "additionalProperties": false
+                "required": ["exersice", "time", "calories"],
+                "example": {
+                  "exersice": "64f2458d6f67bc34bae4f7f7",
+                  "time": 22,
+                  "calories": 100
+                }
               }
             }
           }
         },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "save exercise",
+            "description": "Save exercise",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "exercise was add"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -985,9 +1018,12 @@
             }
           },
           "404": {
-            "description": "Не знайдено",
+            "description": "Not found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -1006,27 +1042,34 @@
       "delete": {
         "tags": ["Diary"],
         "summary": "delete exercise",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "exerciseId": {
-                    "type": "string"
-                  }
-                },
-                "required": ["exerciseId"],
-                "additionalProperties": false
-              }
+        "parameters": [
+          {
+            "name": "Exercise Id",
+            "in": "path",
+            "description": "Type exercise ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "delete exercise",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "exercise was delete"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -1039,9 +1082,76 @@
             }
           },
           "404": {
-            "description": "Не знайдено",
+            "description": "Not found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/diary/delete-product/{productId}": {
+      "delete": {
+        "tags": ["Diary"],
+        "summary": "Delete product",
+        "parameters": [
+          {
+            "name": "Product Id",
+            "in": "path",
+            "description": "Type product ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete product",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "product was delete"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -1060,22 +1170,27 @@
       "get": {
         "tags": ["Diary"],
         "summary": "receive the products and are entitled to the selected date as we are given as an option",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "date": {
-                    "type": "string"
-                  }
-                },
-                "required": ["date"],
-                "additionalProperties": false
-              }
+        "parameters": [
+          {
+            "name": "Date",
+            "in": "path",
+            "description": "Type a date",
+            "example": "2003-10-10",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "receive the products and are entitled to the selected date as we are given as an option",
@@ -1102,61 +1217,14 @@
                         "exerciseDone": {
                           "type": "array"
                         }
+                      },
+                      "example": {
+                        "_id": "65382f75584555dfbc2cfb16",
+                        "": "653567572c6e5ea5140c44a7",
+                        "__v": 0,
+                        "consumedProduct": [],
+                        "exerciseDone": []
                       }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Не знайдено",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/diary/delete-product/{productId}": {
-      "delete": {
-        "tags": ["Diary"],
-        "summary": "delete product",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "productId": {
-                    "type": "string"
-                  }
-                },
-                "required": ["productId"],
-                "additionalProperties": false
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "delete product",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
                     }
                   }
                 }
@@ -1167,6 +1235,9 @@
             "description": "Not found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
