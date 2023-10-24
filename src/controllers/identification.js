@@ -12,7 +12,7 @@ const signup = async (req, res, next) => {
     const dubliceteClient = await authService.getClientByOptions({ email });
     if (validateSchems.registerSchema.validate(req.body).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "validate error",
+        message: validateSchems.registerSchema.validate(req.body).error.details[0].message,
       });
       throw error;
     }
@@ -29,12 +29,12 @@ const signup = async (req, res, next) => {
     };
     const currentUser = await authService.signup(user);
     const token = jwt.sign({ sub: currentUser._id }, JWT_SECRET, {
-      expiresIn: 3600,
+      expiresIn: 72000,
     });
     res.cookie("jwt", token, { secure: true });
     delete user.password;
     res.status(200).json({
-      user,
+      client:user,
       token,
     });
   } catch (e) {
@@ -47,7 +47,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     if (validateSchems.loginSchema.validate(req.body).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "validate error",
+        message: validateSchems.loginSchema.validate(req.body).error.details[0].message,
       });
       throw error;
     }
@@ -68,10 +68,10 @@ const login = async (req, res, next) => {
     }
     const currentUser = user.toObject()
     delete currentUser.password;
-    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 3600 });
+    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 72000 });
     res.cookie("jwt", token, { secure: true });
     res.status(200).json({
-      user:currentUser,
+      client:currentUser,
       token,
     });
   } catch (e) {
@@ -85,7 +85,7 @@ const calculateDailyMetrics = async (req, res, next) => {
     const dailyMetricsData = req.body;
     if (validateSchems.dailyMetricsSchema.validate(dailyMetricsData).error) {
       const error = createError(ERROR_TYPES.UNAUTHORIZED, {
-        message: "body  is incorrect",
+        message: validateSchems.dailyMetricsSchema.validate(dailyMetricsData).error.details[0].message,
       });
       throw error;
     }
@@ -103,7 +103,7 @@ const calculateDailyMetrics = async (req, res, next) => {
         (sex == "female" ? 5 : -161)) *
         lifestyleClientFactor
     );
-   await authService.updateClientById(_id, dailyMetricsData);
+   await authService.updateClientById(_id, {...dailyMetricsData,BMR,timeForSport:110});
     const client = await authService.getClientByOptions({_id})
     const currentUser = client.toObject()
     delete currentUser.password
@@ -128,7 +128,7 @@ const upload = async (req, res, next) => {
     let message;
     if (validateSchems.nameSchema.validate(name).error && !file) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "body is incorrect",
+        message: "name or avatar is incorrect ",
       });
       throw error;
     }
@@ -150,7 +150,7 @@ const currentUser = async (req, res, next) => {
   try {
     const user = req.user;
     res.status(200).json({
-      user,
+      client:user,
     });
   } catch (e) {
     next(e);

@@ -1,3 +1,4 @@
+const { number } = require('joi')
 const {Schema,model} = require('mongoose')
 const clientSchema = new Schema({
     email:{
@@ -36,7 +37,14 @@ const clientSchema = new Schema({
     },
     levelActivity:{
         type:Number,
+    },
+    BMR:{
+        type:Number
+    },
+    timeForSport:{
+        type:Number
     }
+
 })
 
 const clientModel = model('clients',clientSchema)
