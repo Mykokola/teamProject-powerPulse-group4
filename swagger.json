@@ -51,9 +51,16 @@
                     "type": "string"
                   }
                 }
+              },
+              "example":{
+                "email":"12233test@gmail.com",
+                "password":"ivasukTelesuk",
+                "name":"Ivasuk"
               }
             }
-          }
+          },
+          "description": "`name` - string, required.`email` - string email required.`password` - string, min 6, required."
+
         },
         "responses": {
           "200": {
@@ -78,9 +85,17 @@
                       "type": "string"
                     }
                   }
+                },
+                "example":{
+                  "client": {
+                    "email": "12233test@gmail.com",
+                    "name": "Ivasuk"
+                },
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTM3ZjVlN2YwYzIxNjA5Yzc5M2NjY2YiLCJpYXQiOjE2OTgxNjYyNDcsImV4cCI6MTY5ODIzODI0N30.mKzizoialddNQG5OSXoEfvfoXtp38fZuyvbxdwwbQVw"
                 }
               }
             }
+
           },
           "404": {
             "description": "Not Found",
@@ -117,9 +132,15 @@
                     "type": "string"
                   }
                 }
-              }
-            }
-          }
+              },
+              "example":{
+                    "email":"1223test@gmail.com",
+                    "password":"test@gmail.com"
+                  }
+                }
+          },
+          "description": "`email` - string email required.`password` - string, min 6, required."
+
         },
         "responses": {
           "200": {
@@ -150,7 +171,25 @@
                       "type": "string"
                     }
                   }
-                }
+                },
+                "example":{
+                      "client": {
+                        "_id": "6537dcf0ab10068d0d3e9897",
+                        "email": "1223test@gmail.com",
+                        "name": "mymykola",
+                        "__v": 0,
+                        "BMR": 2170,
+                        "birthday": "2003-10-10T00:00:00.000Z",
+                        "blood": 4,
+                        "currentWeight": 55,
+                        "desiredWeight": 55,
+                        "height": 155,
+                        "levelActivity": 4,
+                        "sex": "male",
+                        "timeForSport": 110
+                    },
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTM3ZGNmMGFiMTAwNjhkMGQzZTk4OTciLCJpYXQiOjE2OTgxNjU3ODUsImV4cCI6MTY5ODIzNzc4NX0.2113-G0zi1aO2HyHcgLPoKo7ht_l47nW1omoUw6DyYA"
+                    }
               }
             }
           },
@@ -206,9 +245,20 @@
                     "type": "number"
                   }
                 }
-              }
+              },
+              "example":{
+                    "birthday": "2003-10-10",
+                    "blood": 4,
+                    "currentWeight": 55,
+                    "desiredWeight": 55,
+                    "height": 155,
+                    "levelActivity": 4,
+                    "sex": "male"
+                  }
             }
-          }
+          },
+          "description":"`height` - number; minimum 150; required .`currentWeight` - number; minimum 35; required .`desiredWeight` - number; minimum 35; required .`birthday` - date; must be older than 18 ;  required .`blood` - number; allowed values 1, 2, 3, 4; required .`sex` - string; allowed values 'male', 'female'; required .`levelActivity` - number; allowed values 1, 2, 3, 4, 5; required"
+          
         },
         "responses": {
           "200": {
@@ -265,8 +315,25 @@
                       }
                     }
                   }
-                }
-              }
+                },
+                "example":{
+                      "client": {
+                        "_id": "6537dcf0ab10068d0d3e9897",
+                        "email": "1223test@gmail.com",
+                        "name": "mymykola",
+                        "__v": 0,
+                        "BMR": 2170,
+                        "birthday": "2003-10-10T00:00:00.000Z",
+                        "blood": 4,
+                        "currentWeight": 55,
+                        "desiredWeight": 55,
+                        "height": 155,
+                        "levelActivity": 4,
+                        "sex": "male",
+                        "timeForSport": 110
+                    }
+                    }
+                  }
             }
           },
           "404": {
@@ -302,6 +369,7 @@
       "patch": {
         "tags": ["Identification"],
         "summary": "upload name or avatar",
+        "description":"`avatar`:{body:form-data,key:avatar,file:superAvatarka .jpg||.png} or  `name`:change name",
         "requestBody": {
           "content": {
             "application/json": {
@@ -474,15 +542,10 @@
         "summary": "logout user",
         "responses": {
           "200": {
-            "description": "logout user",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+            "description": "logout user"
           },
           "404": {
-            "description": "Не знайдено",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
@@ -496,7 +559,18 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/products": {
