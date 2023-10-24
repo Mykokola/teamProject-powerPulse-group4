@@ -191,9 +191,11 @@
                   "desiredWeight": {
                     "type": "number"
                   },
-                  "birthday": {
-                    "type": "string"
-                  },
+                  "birthday":{
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                },
                   "blood": {
                     "type": "number"
                   },
