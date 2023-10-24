@@ -212,7 +212,7 @@
         },
         "responses": {
           "200": {
-            "description": "calculated BMR",
+            "description": "calculated BMR an avatar can also be displayed if there is one",
             "content": {
               "application/json": {
                 "schema": {
@@ -243,8 +243,10 @@
                           "type": "number"
                         },
                         "birthday": {
-                          "type": "string"
-                        },
+                          "type": "string",
+                          "format": "date",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                      },
                         "blood": {
                           "type": "number"
                         },
@@ -252,6 +254,12 @@
                           "type": "string"
                         },
                         "levelActivity": {
+                          "type": "number"
+                        },
+                        "BMR":{
+                          "type": "number"
+                        },
+                        "timeForSport":{
                           "type": "number"
                         }
                       }
@@ -376,7 +384,7 @@
         "summary": "get current user",
         "responses": {
           "200": {
-            "description": "current user",
+            "description": "current user an avatar can also be displayed if there is one",
             "content": {
               "application/json": {
                 "schema": {
@@ -416,6 +424,12 @@
                           "type": "string"
                         },
                         "levelActivity": {
+                          "type": "number"
+                        },
+                        "BMR":{
+                          "type": "number"
+                        },
+                        "timeForSport":{
                           "type": "number"
                         }
                       }
