@@ -46,34 +46,46 @@
         },
         "responses": {
           "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Bad request"
           },
           "409": {
-            "description": "Email in use",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Email in use"
           },
           "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
-                }
-              }
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/identification/login": {
+      "post": {
+        "tags": ["Identification"],
+        "summary": "Login user",
+        "description": "Login user",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login user",
+
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": "{\"email\":\"test@gmail.com\", \"password\":\"testPassword\"}",
+              "schema": {}
             }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "User not registered"
+          },
+          "401": {
+            "description": "Email or password is incorrect"
+          },
+          "200": {
+            "description": "Successful operation"
           }
         }
       }
