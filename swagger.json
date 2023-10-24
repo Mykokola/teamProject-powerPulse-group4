@@ -15,7 +15,7 @@
   "tags": [
     {
       "name":"Identification",
-      "description":"User identification"
+      "description":"User endpoints"
     },
     {
       "name": "Products",
@@ -24,8 +24,11 @@
     {
       "name": "Exercises",
       "description": "Exercises endpoints"
+    },
+    {
+      "name": "Dairy",
+      "description":"Dairy endpoints"
     }
-
   ],
   "paths": {
       "/identification/signup": {
@@ -284,8 +287,8 @@
             }
           ]
         }
-      }
-    ,
+      },
+     
     "/identification/upload": {
       "patch": {
         "tags": ["Identification"],
@@ -556,7 +559,317 @@
       }
     },
 
+    "/diary/save-product": {
+      "post": {
+        "tags":["Dairy"],
+        "summary": "save product",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number"
+                  },
+                  "calories": {
+                    "type": "number"
+                  },
+                  "date": {
+                    "type": "string"
+                  }
+                },
+                "required": ["product", "amount", "calories"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "save product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+,
+    "/diary/save-exercise": {
+      "post": {
+        "summary": "save exercise",
+        "tags":["Dairy"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "exercise": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "number"
+                  },
+                  "calories": {
+                    "type": "number"
+                  },
+                  "date": {
+                    "type": "string"
+                  }
+                },
+                "required": ["exercise", "time", "calories"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "save exercise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     
+    "/diary/delete-exercise/{exerciseId}": {
+      "delete": {
+        "tags":["Dairy"],
+        "summary": "delete exercise",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "exerciseId": {
+                    "type": "string"
+                  }
+                },
+                "required": ["exerciseId"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delete exercise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    ,
+    "/diary/dairy-date-info/{date}": {
+      "get": {
+        "tags":["Dairy"],
+        "summary": "receive the products and are entitled to the selected date as we are given as an option",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string"
+                  }
+                },
+                "required": ["date"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "receive the products and are entitled to the selected date as we are given as an option",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "dairy": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "number"
+                        },
+                        "consumedProduct": {
+                          "type": "array"
+                        },
+                        "exerciseDone": {
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    ,
+    "/diary/delete-product/{productId}": {
+      "delete": {
+        "tags":["Dairy"],
+        "summary": "delete product",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "string"
+                  }
+                },
+                "required": ["productId"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delete product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+  ,
     "/products/categories": {
       "get": {
         "tags": ["Products"],
