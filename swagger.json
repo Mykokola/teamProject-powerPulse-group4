@@ -26,8 +26,8 @@
       "description": "Exercises endpoints"
     },
     {
-      "name": "Dairy",
-      "description":"Dairy endpoints"
+      "name": "Diary",
+      "description":"Diary endpoints"
     }
   ],
   "paths": {
@@ -561,7 +561,7 @@
 
     "/diary/save-product": {
       "post": {
-        "tags":["Dairy"],
+        "tags":["Diary"],
         "summary": "save product",
         "requestBody": {
           "content": {
@@ -626,7 +626,7 @@
     "/diary/save-exercise": {
       "post": {
         "summary": "save exercise",
-        "tags":["Dairy"],
+        "tags":["Diary"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -689,7 +689,7 @@
     
     "/diary/delete-exercise/{exerciseId}": {
       "delete": {
-        "tags":["Dairy"],
+        "tags":["Diary"],
         "summary": "delete exercise",
         "requestBody": {
           "content": {
@@ -744,7 +744,7 @@
     ,
     "/diary/dairy-date-info/{date}": {
       "get": {
-        "tags":["Dairy"],
+        "tags":["Diary"],
         "summary": "receive the products and are entitled to the selected date as we are given as an option",
         "requestBody": {
           "content": {
@@ -816,7 +816,7 @@
     ,
     "/diary/delete-product/{productId}": {
       "delete": {
-        "tags":["Dairy"],
+        "tags":["Diary"],
         "summary": "delete product",
         "requestBody": {
           "content": {
