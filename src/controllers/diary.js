@@ -40,7 +40,7 @@ const saveExercise = async (req, res, next) => {
     const { _id } = req.user;
     if (validateSchema.exercisePattern.validate(exercise).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: validateSchema.productPattern.validate(product).error.details[0].message,
+        message: validateSchema.exercisePattern.validate(exercise).error.details[0].message,
       });
       throw error;
     }
@@ -68,7 +68,7 @@ const deleteProduct = async (req, res, next) => {
     const { _id } = req.user;
     if (!productId) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: validateSchema.productPattern.validate(product).error.details[0].message,
+        message: 'you must pass an productId route parameter that is equal to the product ID',
       });
       throw error;
     }
@@ -98,7 +98,7 @@ const deleteExercise = async (req, res, next) => {
     const { _id } = req.user;
     if (!exerciseId) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: validateSchema.productPattern.validate(product).error.details[0].message,
+        message: 'you must pass an exerciseId route parameter that is equal to the exercise ID',
       });
       throw error;
     }
@@ -127,7 +127,7 @@ const dairyDateInfo = async (req, res, next) => {
     const { _id } = req.user;
     if (validateSchema.datePattern.validate(option).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: validateSchema.productPattern.validate(product).error.details[0].message,
+        message: validateSchema.datePattern.validate(option).error.details[0].message,
       });
       throw error;
     }
