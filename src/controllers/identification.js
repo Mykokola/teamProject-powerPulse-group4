@@ -12,7 +12,7 @@ const signup = async (req, res, next) => {
     const dubliceteClient = await authService.getClientByOptions({ email });
     if (validateSchems.registerSchema.validate(req.body).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "validate error",
+        message: validateSchems.registerSchema.validate(req.body).error.details[0].message,
       });
       throw error;
     }
@@ -47,7 +47,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     if (validateSchems.loginSchema.validate(req.body).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "validate error",
+        message: validateSchems.loginSchema.validate(req.body).error.details[0].message,
       });
       throw error;
     }
@@ -85,7 +85,7 @@ const calculateDailyMetrics = async (req, res, next) => {
     const dailyMetricsData = req.body;
     if (validateSchems.dailyMetricsSchema.validate(dailyMetricsData).error) {
       const error = createError(ERROR_TYPES.UNAUTHORIZED, {
-        message: "body  is incorrect",
+        message: validateSchems.dailyMetricsSchema.validate(dailyMetricsData).error.details[0].message,
       });
       throw error;
     }
@@ -128,7 +128,7 @@ const upload = async (req, res, next) => {
     let message;
     if (validateSchems.nameSchema.validate(name).error && !file) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "body is incorrect",
+        message: "name or avatar is incorrect ",
       });
       throw error;
     }
