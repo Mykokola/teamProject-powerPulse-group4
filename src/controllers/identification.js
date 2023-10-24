@@ -29,7 +29,7 @@ const signup = async (req, res, next) => {
     };
     const currentUser = await authService.signup(user);
     const token = jwt.sign({ sub: currentUser._id }, JWT_SECRET, {
-      expiresIn: 3600,
+      expiresIn: 72000,
     });
     res.cookie("jwt", token, { secure: true });
     delete user.password;
@@ -68,7 +68,7 @@ const login = async (req, res, next) => {
     }
     const currentUser = user.toObject()
     delete currentUser.password;
-    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 3600 });
+    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 72000 });
     res.cookie("jwt", token, { secure: true });
     res.status(200).json({
       user:currentUser,
