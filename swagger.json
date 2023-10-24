@@ -14,8 +14,8 @@
   "produces": ["application/json"],
   "tags": [
     {
-      "name":"Identification",
-      "description":"User endpoints"
+      "name": "Identification",
+      "description": "User endpoints"
     },
     {
       "name": "Products",
@@ -27,268 +27,267 @@
     },
     {
       "name": "Diary",
-      "description":"Diary endpoints"
+      "description": "Diary endpoints"
     }
   ],
   "paths": {
-      "/identification/signup": {
-        "post": {
-          "tags": ["Identification"],
-          "summary": " user signup",
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "password": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "successful signup",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "client": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "token": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "Not Found",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/identification/login": {
-        "post": {
-          "tags": ["Identification"],
-          "summary": "user login",
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "email": {
-                      "type": "string"
-                    },
-                    "password": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "successful login",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "client": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string"
-                          },
-                          "_id": {
-                            "type": "string"
-                          },
-                          "_v": {
-                            "type": "number"
-                          }
-                        }
-                      },
-                      "token": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "Not Found",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/identification/calculateDailyMetrics": {
-        "post": {
-          "tags": ["Identification"],
-          "summary": "count BMR",
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "height": {
-                      "type": "number"
-                    },
-                    "currentWeight": {
-                      "type": "number"
-                    },
-                    "desiredWeight": {
-                      "type": "number"
-                    },
-                    "birthday": {
-                      "type": "string"
-                    },
-                    "blood": {
-                      "type": "number"
-                    },
-                    "sex": {
-                      "type": "string"
-                    },
-                    "levelActivity": {
-                      "type": "number"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "calculated BMR",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "client": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string"
-                          },
-                          "_id": {
-                            "type": "string"
-                          },
-                          "_v": {
-                            "type": "number"
-                          },
-                          "height": {
-                            "type": "number"
-                          },
-                          "currentWeight": {
-                            "type": "number"
-                          },
-                          "desiredWeight": {
-                            "type": "number"
-                          },
-                          "birthday": {
-                            "type": "string"
-                          },
-                          "blood": {
-                            "type": "number"
-                          },
-                          "sex": {
-                            "type": "string"
-                          },
-                          "levelActivity": {
-                            "type": "number"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "404": {
-              "description": "Не знайдено",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "parameters": [
-            {
-              "name": "Authorization",
-              "in": "header",
-              "description": "The token issued to the current user.",
-              "required": true,
+    "/identification/signup": {
+      "post": {
+        "tags": ["Identification"],
+        "summary": " user signup",
+        "requestBody": {
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
               }
             }
-          ]
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful signup",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
-      },
-     
+      }
+    },
+    "/identification/login": {
+      "post": {
+        "tags": ["Identification"],
+        "summary": "user login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "_v": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identification/calculateDailyMetrics": {
+      "post": {
+        "tags": ["Identification"],
+        "summary": "count BMR",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "height": {
+                    "type": "number"
+                  },
+                  "currentWeight": {
+                    "type": "number"
+                  },
+                  "desiredWeight": {
+                    "type": "number"
+                  },
+                  "birthday": {
+                    "type": "string"
+                  },
+                  "blood": {
+                    "type": "number"
+                  },
+                  "sex": {
+                    "type": "string"
+                  },
+                  "levelActivity": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "calculated BMR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "_v": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "currentWeight": {
+                          "type": "number"
+                        },
+                        "desiredWeight": {
+                          "type": "number"
+                        },
+                        "birthday": {
+                          "type": "string"
+                        },
+                        "blood": {
+                          "type": "number"
+                        },
+                        "sex": {
+                          "type": "string"
+                        },
+                        "levelActivity": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "The token issued to the current user.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/identification/upload": {
       "patch": {
         "tags": ["Identification"],
@@ -368,8 +367,7 @@
           }
         ]
       }
-    }
-    ,
+    },
     "/identification/currentUser": {
       "get": {
         "tags": ["Identification"],
@@ -453,8 +451,7 @@
           }
         ]
       }
-    }
-    ,
+    },
     "/identification/logout": {
       "post": {
         "tags": ["Identification"],
@@ -485,8 +482,7 @@
           }
         }
       }
-    }
-    ,
+    },
     "/products": {
       "get": {
         "tags": ["Products"],
@@ -548,9 +544,13 @@
             "description": "Not Found",
             "content": {
               "application/json": {
-                "example": "Not Found",
                 "schema": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -558,10 +558,262 @@
         }
       }
     },
-
+    "/products/available-blood-products/{type}": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get list of available products by blood type",
+        "description": "Returns a list of all available products according to blood what indicated in client data, {type} must be \"true\" or \"false\" ",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": ["type"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "content": {
+              "application/json": {
+                "example": "[{\"_id\":\"12345\", \"weight\":\"100\", \"calories\":\"340\", \"category\":\"dairy\",  \"title\":\"Danbo cheese\", \"groupBloodNotAllowed\":{\"1\":\"true\",\"2\":\"true\",\"3\":\"true\",\"4\":\"true\"}}]",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "weight": {
+                        "type": "string"
+                      },
+                      "calories": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "groupBloodNotAllowed": {
+                        "type": "object",
+                        "properties": {
+                          "1": {
+                            "type": "string"
+                          },
+                          "2": {
+                            "type": "string"
+                          },
+                          "3": {
+                            "type": "string"
+                          },
+                          "4": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/categories": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get list of products categories",
+        "description": "Returns a list of all products categories",
+        "responses": {
+          "200": {
+            "description": "A list of products categories",
+            "content": {
+              "application/json": {
+                "example": "[{\"_id\":\"12345\", \"name\":\"productsCategories\", \"items\":[\"alcoholic drinks\",\"berries\"]}]",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exercises": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get list of exersices",
+        "description": "Returns a list of all exersices",
+        "responses": {
+          "200": {
+            "description": "A list of exersices",
+            "content": {
+              "application/json": {
+                "example": "[{\"_id\":\"12345\", \"bodyPart\":\"chest\", \"equipment\":\"leverage machine\", \"gifUrl\":\"https://ftp.goit.study/img/power-pulse/gifs/0009.gif\", \"name\":\"assisted chest dip (kneeling)\", \"target\":\"pectorals\", \"burnedCalories\":329, \"time\":3}]",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "bodyPart": {
+                        "type": "string"
+                      },
+                      "equipment": {
+                        "type": "string"
+                      },
+                      "gifUrl": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      },
+                      "burnedCalories": {
+                        "type": "integer"
+                      },
+                      "time": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exercises/all-types": {
+      "get": {
+        "tags": ["Exercises"],
+        "summary": "Get list of bodyparts, muscules, equipments",
+        "description": "Returns a list of all bodyparts, muscules, equipments",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "example": "{\"bodyParts\":[\"chest\",\"upper legs\"], \"equipment\":[\"leverage machine\",\"barbell\"], \"muscules\":[\"pectorals\",\"quads\"]}",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/diary/save-product": {
       "post": {
-        "tags":["Diary"],
+        "tags": ["Diary"],
         "summary": "save product",
         "requestBody": {
           "content": {
@@ -621,12 +873,11 @@
           }
         }
       }
-    }
-,
+    },
     "/diary/save-exercise": {
       "post": {
         "summary": "save exercise",
-        "tags":["Diary"],
+        "tags": ["Diary"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -686,10 +937,9 @@
         }
       }
     },
-    
     "/diary/delete-exercise/{exerciseId}": {
       "delete": {
-        "tags":["Diary"],
+        "tags": ["Diary"],
         "summary": "delete exercise",
         "requestBody": {
           "content": {
@@ -740,11 +990,10 @@
           }
         }
       }
-    }
-    ,
+    },
     "/diary/dairy-date-info/{date}": {
       "get": {
-        "tags":["Diary"],
+        "tags": ["Diary"],
         "summary": "receive the products and are entitled to the selected date as we are given as an option",
         "requestBody": {
           "content": {
@@ -812,11 +1061,10 @@
           }
         }
       }
-    }
-    ,
+    },
     "/diary/delete-product/{productId}": {
       "delete": {
-        "tags":["Diary"],
+        "tags": ["Diary"],
         "summary": "delete product",
         "requestBody": {
           "content": {
@@ -868,158 +1116,5 @@
         }
       }
     }
-    
-  ,
-    "/products/categories": {
-      "get": {
-        "tags": ["Products"],
-        "summary": "Get list of products categories",
-        "description": "Returns a list of all products categories",
-        "responses": {
-          "200": {
-            "description": "A list of products categories",
-            "content": {
-              "application/json": {
-                "example": "[{\"_id\":\"12345\", \"name\":\"productsCategories\", \"items\":[\"alcoholic drinks\",\"berries\"]}]",
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "items": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "example": "Not Found",
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/exercises": {
-      "get": {
-        "tags": ["Exercises"],
-        "summary": "Get list of exersices",
-        "description": "Returns a list of all exersices",
-        "responses": {
-          "200": {
-            "description": "A list of exersices",
-            "content": {
-              "application/json": {
-                "example": "[{\"_id\":\"12345\", \"bodyPart\":\"chest\", \"equipment\":\"leverage machine\", \"gifUrl\":\"https://ftp.goit.study/img/power-pulse/gifs/0009.gif\", \"name\":\"assisted chest dip (kneeling)\", \"target\":\"pectorals\", \"burnedCalories\":329, \"time\":3}]",
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "bodyPart": {
-                        "type": "string"
-                      },
-                      "equipment": {
-                        "type": "string"
-                      },
-                      "gifUrl": {
-                        "type": "string"
-                      },
-                      "target": {
-                        "type": "string"
-                      },
-                      "burnedCalories": {
-                        "type": "integer"
-                      },
-                      "time": {
-                        "type": "integer"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "example": "Not Found",
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/exercises/all-types": {
-      "get": {
-        "tags": ["Exercises"],
-        "summary": "Get list of bodyparts, muscules, equipments",
-        "description": "Returns a list of all bodyparts, muscules, equipments",
-        "responses": {
-          "200": {
-            "description": "A list of users",
-            "content": {
-              "application/json": {
-                "example": "{\"bodyParts\":[\"chest\",\"upper legs\"], \"equipment\":[\"leverage machine\",\"barbell\"], \"muscules\":[\"pectorals\",\"quads\"]}",
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "items": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "example": "Not Found",
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
-
