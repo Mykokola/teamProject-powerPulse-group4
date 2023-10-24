@@ -373,6 +373,15 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object",
                 "properties": {
                   "name": {
                     "type": "string"
