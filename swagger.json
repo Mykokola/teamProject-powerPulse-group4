@@ -63,7 +63,7 @@
                   "schema": {
                     "type": "object",
                     "properties": {
-                      "user": {
+                      "client": {
                         "type": "object",
                         "properties": {
                           "name": {
@@ -129,7 +129,7 @@
                   "schema": {
                     "type": "object",
                     "properties": {
-                      "user": {
+                      "client": {
                         "type": "object",
                         "properties": {
                           "name": {
@@ -382,7 +382,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "user": {
+                    "client": {
                       "type": "object",
                       "properties": {
                         "name": {

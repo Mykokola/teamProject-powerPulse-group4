@@ -34,7 +34,7 @@ const signup = async (req, res, next) => {
     res.cookie("jwt", token, { secure: true });
     delete user.password;
     res.status(200).json({
-      user,
+      client:user,
       token,
     });
   } catch (e) {
@@ -71,7 +71,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 72000 });
     res.cookie("jwt", token, { secure: true });
     res.status(200).json({
-      user:currentUser,
+      client:currentUser,
       token,
     });
   } catch (e) {
@@ -150,7 +150,7 @@ const currentUser = async (req, res, next) => {
   try {
     const user = req.user;
     res.status(200).json({
-      user,
+      client:user,
     });
   } catch (e) {
     next(e);
