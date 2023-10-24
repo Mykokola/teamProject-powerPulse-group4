@@ -103,7 +103,7 @@ const calculateDailyMetrics = async (req, res, next) => {
         (sex == "female" ? 5 : -161)) *
         lifestyleClientFactor
     );
-   await authService.updateClientById(_id, dailyMetricsData);
+   await authService.updateClientById(_id, {...dailyMetricsData,BMR,timeForSport:110});
     const client = await authService.getClientByOptions({_id})
     const currentUser = client.toObject()
     delete currentUser.password
