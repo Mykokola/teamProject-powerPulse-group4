@@ -1308,7 +1308,7 @@
                       },
                       "example": {
                         "_id": "65382f75584555dfbc2cfb16",
-                        "": "653567572c6e5ea5140c44a7",
+                        "clientId": "653567572c6e5ea5140c44a7",
                         "__v": 0,
                         "consumedProduct": [],
                         "exerciseDone": []
