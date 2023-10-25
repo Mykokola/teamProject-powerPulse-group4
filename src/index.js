@@ -32,6 +32,11 @@ app.use(express.json());
 
 //SWAGGER
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "onrender.com"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //SERVICE
 app.use("/products", products);
@@ -39,6 +44,8 @@ app.use("/identification", identification);
 app.use("/statistics", statistics);
 app.use("/exercises", exercises);
 app.use("/diary", diary);
+ 
+
 
 
 app.use(handlerError)
