@@ -33,8 +33,10 @@ app.use(express.json());
 //SWAGGER
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "onrender.com"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Origin', 'https://teamproject-powerpulse-group4.onrender.com'); // Додайте правильні джерела запитів
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE'); // Додайте підтримувані методи
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Додайте підтримувані заголовки
+  
   next();
 });
 
