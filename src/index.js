@@ -18,7 +18,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 const corsOptions = {
   origin: 'https://teamproject-powerpulse-group4.onrender.com', // Встановлення конкретного джерела запитів
-  methods: 'GET,POST,PATCH,DELETE', // Дозволяємо лише GET і POST запити
+  methods: 'GET,POST,PATCH,DELETE,OPTIONS', // Дозволяємо лише GET і POST запити
   allowedHeaders: 'Content-Type, Authorization', // Дозволені заголовки
   optionsSuccessStatus: 200 // Дозволений статус для префлайт-запиту
 };
@@ -34,7 +34,7 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', 'https://teamproject-powerpulse-group4.onrender.com'); // Додайте правильні джерела запитів
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE'); // Додайте підтримувані методи
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH,OPTIONS, DELETE'); // Додайте підтримувані методи
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Додайте підтримувані заголовки
   
   next();

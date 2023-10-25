@@ -7,7 +7,7 @@ const cors = require("cors");
 
 const corsOptions = {
     origin: 'https://teamproject-powerpulse-group4.onrender.com', // Встановлення конкретного джерела запитів
-    methods: 'GET,POST,PATCH,DELETE', // Дозволяємо лише GET і POST запити
+    methods: 'GET,POST,PATCH,DELETE,OPTIONS', // Дозволяємо лише GET і POST запити
     allowedHeaders: 'Content-Type, Authorization', // Дозволені заголовки
     optionsSuccessStatus: 200 // Дозволений статус для префлайт-запиту
   };
