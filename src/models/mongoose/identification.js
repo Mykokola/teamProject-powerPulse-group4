@@ -45,7 +45,7 @@ const clientSchema = new Schema({
         type:Number
     }
 
-})
+},{ versionKey: false })
 
 const clientModel = model('clients',clientSchema)
 module.exports = clientModel

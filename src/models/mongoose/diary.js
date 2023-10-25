@@ -13,7 +13,7 @@ const dairySchema = new Schema({
             default:[]
         }
         
-})
+},{ versionKey: false })
 
 const dairyModel = model('dairyClients',dairySchema)
 
