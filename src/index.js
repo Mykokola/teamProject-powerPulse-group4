@@ -15,8 +15,17 @@ const statistics = require("./routes/statistics");
 const exercises = require("./routes/exercises");
 const diary = require("./routes/diary");
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+
+const corsOptions = {
+  origin: 'https://teamproject-powerpulse-group4.onrender.com', // Встановлення конкретного джерела запитів
+  methods: 'GET,POST,PATCH,DELETE', // Дозволяємо лише GET і POST запити
+  allowedHeaders: 'Content-Type, Authorization', // Дозволені заголовки
+  optionsSuccessStatus: 200 // Дозволений статус для префлайт-запиту
+};
+
+
 app.use(logger(formatsLogger));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.json());
