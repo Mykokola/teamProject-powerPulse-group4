@@ -124,6 +124,7 @@ const upload = async (req, res, next) => {
   try {
     const name = req.body;
     const file = req.file;
+    const updateElem = {}
     const { _id } = req.user;
     let message;
     if (validateSchems.nameSchema.validate(name).error && !file) {
@@ -133,14 +134,18 @@ const upload = async (req, res, next) => {
       throw error;
     }
     if (req.body.name) {
-      await authService.updateClientById(_id, name);
+     const updateClient =  await authService.updateClientById(_id, name);
+     updateElem.name = updateClient.name
       message = "name was update";
     } else {
       const { path } = file;
       await authService.updateClientById(_id, { avatar: path });
+      const currentClient = await authService.getClientByOptions({_id:req.user._id})
+      updateElem.avatar = currentClient.avatar
+      
       message = "avatar was update";
     }
-    res.status(200).json({ message });
+    res.status(200).json({ ...updateElem });
   } catch (e) {
     next(e);
   }
