@@ -17,7 +17,7 @@ const diary = require("./routes/diary");
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 const corsOptions = {
-  origin: ['https://teamproject-powerpulse-group4.onrender.com','http://localhost:3000'], // Встановлення конкретного джерела запитів
+  origin:'http://localhost:3000', // Встановлення конкретного джерела запитів
   methods: 'GET,POST,PATCH,DELETE,OPTIONS', // Дозволяємо лише GET і POST запити
   allowedHeaders: 'Content-Type, Authorization', // Дозволені заголовки
   optionsSuccessStatus: 200 // Дозволений статус для префлайт-запиту
