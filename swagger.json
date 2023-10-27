@@ -891,7 +891,7 @@
             "description": "A list of users",
             "content": {
               "application/json": {
-                "example": "{\"bodyParts\":[\"chest\",\"upper legs\"], \"equipment\":[\"leverage machine\",\"barbell\"], \"muscules\":[\"pectorals\",\"quads\"]}",
+                "example": "{\"bodyParts\":[\"_id:650f35ece3f5522fc639628a,filter:Body parts,name:cardio,imgURL:https://ftp.goit.study/img/power-pulse/filters/cardio_pkkceg.jpg\",\"upper legs\"], \"equipment\":[\"\"_id:650f35ece3f5522fc639628a,filter:equipment,name:cardio,imgURL:https://ftp.goit.study/img/power-pulse/filters/cardio_pkkceg.jpg\"], \"muscules\":[\"_id:650f35ece3f5522fc639628a,filter:muscules,name:cardio,imgURL:https://ftp.goit.study/img/power-pulse/filters/cardio_pkkceg.jpg\",\"upper legs\"]}",
                 "schema": {
                   "type": "array",
                   "items": {
