@@ -123,6 +123,7 @@ const deleteExercise = async (req, res, next) => {
 };
 const dairyDateInfo = async (req, res, next) => {
   try {
+
     const option = req.params;
     const { _id } = req.user;
     if (validateSchema.datePattern.validate(option).error) {
