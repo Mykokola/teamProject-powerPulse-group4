@@ -1,47 +1,16 @@
 const { ctrlWrapper } = require("../utils");
-const createError = require("../utils/createError");
-const ERROR_TYPES = require("../constants/ERROR_CODES");
 const statistic = require("../services/statistics");
 const exerciseService = require("../services/exercises");
+const requestError = require('../utils/requestError')
 
-const requestError = (message) => {
-  const error = createError(ERROR_TYPES.NOT_FOUND, {
-    message: message || "Not found",
-  });
-  throw error;
-};
-
-const getRegisteredUsersCount = async () => {
-  const clients = await statistic.allUsers();
-  if (!clients) {
-    requestError();
-  }
-  return clients;
-};
-
-const getAllDiaryDetails = async () => {
-  const diaryDetails = await statistic.diaryDetails();
-  if (!diaryDetails) {
-    requestError();
-  }
-  return diaryDetails;
-};
-
-const getAllExercisesCount = async () => {
-  const exercises = await exerciseService.getAllExercises();
-  if (!exercises) {
-    requestError();
-  }
-  return exercises;
-};
 
 const getStatisticInfo = async (req, res, next) => {
   try {
-    const clientsData = await getRegisteredUsersCount();
-    const exercisesData = await getAllExercisesCount();
-    const diaryData = await getAllDiaryDetails();
+    const clientsData = await statistic.allUsers();;
+    const exercisesData =  await exerciseService.getAllExercises();
+    const diaryData =await statistic.diaryDetails();
 
-    if (!clientsData && !exercisesData && !diaryData) {
+    if (!clientsData || !exercisesData || !diaryData) {
       requestError();
     }
     const usersCount = clientsData.length;
