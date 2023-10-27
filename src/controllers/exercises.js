@@ -15,20 +15,17 @@ const getAllExercises = async (req, res) => {
 
 const getAlldetails = async (req, res) => {
   const details =  await exerciseService.getAllExercises()
-  if (!details) {
+  const equipmentList = await exerciseService.getFilterByOptions({filter:'Equipment'})
+  const bodyPartsList = await exerciseService.getFilterByOptions({filter:'Body parts'})
+  const musculesList =  await exerciseService.getFilterByOptions({filter:'Muscles'})
+  if (!details||!equipmentList||!bodyPartsList||!musculesList) {
     const error = createError(ERROR_TYPES.NOT_FOUND, {
       message: "Not found",
     });
     throw error;
   }
-  const bodyParts = details.map((obj) => obj.bodyPart);
-  const bodyPartsList = [...new Set(bodyParts)];
 
-  const equipment = details.map((obj) => obj.equipment);
-  const equipmentList = [...new Set(equipment)];
-
-  const muscules = details.map((obj) => obj.target);
-  const musculesList = [...new Set(muscules)];
+  
 
   const detailsList = {
     bodyParts: bodyPartsList,
