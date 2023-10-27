@@ -812,7 +812,7 @@
           }
         ],
         "tags": ["Exercises"],
-        "summary": "Get list of exersices",
+        "summary": "returns filtered exercises by type",
         "description": "`type`:body part || equipment || Muscles . one of these values",
         "responses": {
           "200": {

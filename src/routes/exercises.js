@@ -5,8 +5,9 @@ const ctrl = require("../controllers/exercises");
 const authMiddleware = require("../middlewears/authMiddleware");
 
 //PRIVATE
+router.get("/all-types", authMiddleware, ctrl.getAlldetails);
+
 router.get("/:type", authMiddleware, ctrl.getAllExercises);
 
-router.get("/all-types", authMiddleware, ctrl.getAlldetails);
 //PRIVATE
 module.exports = router;
