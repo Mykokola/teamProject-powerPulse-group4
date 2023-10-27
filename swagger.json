@@ -359,10 +359,8 @@
             }
           }
         ]
-
       }
-    }
-    ,
+    },
     "/identification/upload": {
       "patch": {
         "tags": ["Identification"],
@@ -441,7 +439,6 @@
             }
           }
         ]
-
       }
     },
     "/identification/currentUser": {
@@ -1055,7 +1052,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "exersice": {
+                  "exercise": {
                     "type": "string"
                   },
                   "time": {
@@ -1065,9 +1062,9 @@
                     "type": "number"
                   }
                 },
-                "required": ["exersice", "time", "calories"],
+                "required": ["exercise", "time", "calories"],
                 "example": {
-                  "exersice": "64f2458d6f67bc34bae4f7f7",
+                  "exercise": "64f2458d6f67bc34bae4f7f7",
                   "time": 22,
                   "calories": 100
                 }

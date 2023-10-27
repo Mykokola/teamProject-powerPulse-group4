@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-//PRIVATE
-router.get('/')
-//PRIVATE
+const ctrl = require("../controllers/statistics");
+//PUBLIC
+router.get("/", ctrl.getStatisticInfo);
+//PUBLIC
 module.exports = router;
