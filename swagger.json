@@ -10,8 +10,25 @@
       "url": "https://teamproject-powerpulse-group4.onrender.com/"
     }
   ],
-  "consumes": ["application/json", "multipart/form-data "],
-  "produces": ["application/json"],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "Authorization": {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Bearer Token"
+      }
+    }
+  },
   "tags": [
     {
       "name": "Identification",
@@ -28,6 +45,10 @@
     {
       "name": "Diary",
       "description": "Diary endpoints"
+    },
+    {
+      "name": "Statistics",
+      "description": "Statistics endpoints"
     }
   ],
   "paths": {
@@ -210,6 +231,11 @@
     },
     "/identification/calculateDailyMetrics": {
       "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Identification"],
         "summary": "count BMR",
         "requestBody": {
@@ -333,7 +359,7 @@
             }
           },
           "404": {
-            "description": "Не знайдено",
+            "description": "Not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -347,22 +373,16 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/identification/upload": {
       "patch": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Identification"],
         "summary": "upload name or avatar",
         "description": "`avatar`:{body:form-data,key:avatar,file:superAvatarka .jpg||.png} or  `name`:change name",
@@ -427,22 +447,16 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/identification/currentUser": {
       "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Identification"],
         "summary": "get current user",
         "responses": {
@@ -517,22 +531,16 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/identification/logout": {
       "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Identification"],
         "summary": "logout user",
         "responses": {
@@ -554,36 +562,19 @@
               }
             }
           }
-        },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
+        }
       }
     },
     "/products": {
       "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Products"],
         "summary": "Get list of products",
         "description": "Returns a list of all products",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "A list of products",
@@ -659,6 +650,11 @@
     },
     "/products/available-blood-products/{type}": {
       "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Products"],
         "summary": "Get list of available products by blood type",
         "description": "Returns a list of all available products according to blood what indicated in client data, {type} must be \"true\" or \"false\" ",
@@ -672,15 +668,6 @@
             "schema": {
               "type": "string",
               "enum": ["true", "false"]
-            }
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -759,20 +746,14 @@
     },
     "/products/categories": {
       "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Products"],
         "summary": "Get list of products categories",
         "description": "Returns a list of all products categories",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "A list of products categories",
@@ -825,20 +806,14 @@
     },
     "/exercises": {
       "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Exercises"],
         "summary": "Get list of exersices",
         "description": "Returns a list of all exersices",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "A list of exersices",
@@ -903,20 +878,14 @@
     },
     "/exercises/all-types": {
       "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Exercises"],
         "summary": "Get list of bodyparts, muscules, equipments",
         "description": "Returns a list of all bodyparts, muscules, equipments",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "A list of users",
@@ -963,6 +932,11 @@
     },
     "/diary/save-product": {
       "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Diary"],
         "summary": "Save product",
         "requestBody": {
@@ -991,17 +965,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Save diary product",
@@ -1044,6 +1007,11 @@
     },
     "/diary/save-exercise": {
       "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "save exercise",
         "tags": ["Diary"],
         "requestBody": {
@@ -1072,17 +1040,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Save exercise",
@@ -1125,6 +1082,11 @@
     },
     "/diary/delete-exercise/{exerciseId}": {
       "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Diary"],
         "summary": "delete exercise",
         "parameters": [
@@ -1132,15 +1094,6 @@
             "name": "Exercise Id",
             "in": "path",
             "description": "Type exercise ID",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1189,6 +1142,11 @@
     },
     "/diary/delete-product/{productId}": {
       "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Diary"],
         "summary": "Delete product",
         "parameters": [
@@ -1196,15 +1154,6 @@
             "name": "Product Id",
             "in": "path",
             "description": "Type product ID",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1253,6 +1202,11 @@
     },
     "/diary/diary-date-info/{date}": {
       "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "tags": ["Diary"],
         "summary": "receive the products and are entitled to the selected date as we are given as an option",
         "parameters": [
@@ -1261,15 +1215,6 @@
             "in": "path",
             "description": "Type a date",
             "example": "2003-10-10",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "The token issued to the current user.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1318,6 +1263,61 @@
           },
           "404": {
             "description": "Not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/statistics": {
+      "get": {
+        "tags": ["Statistics"],
+        "summary": "Get info statistics",
+        "description": "Returns a list of all counts of trainings, burned calories, registered users, spent time of all users, total users made exercises",
+        "responses": {
+          "200": {
+            "description": "A list statictics data",
+            "content": {
+              "application/json": {
+                "example": "{\"trainingsQuantity\":\"1324\", \"burnedAllUsersCalories\":\"800\", \"registeredUsersCount\":\"27\", \"spentAllUsersTime\":\"622\", \"totalUsersExercisesCount\":\"4\"}",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "trainingsQuantity": {
+                      "type": "number"
+                    },
+                    "burnedAllUsersCalories": {
+                      "type": "number"
+                    },
+                    "registeredUsersCount": {
+                      "type": "number"
+                    },
+                    "spentAllUsersTime": {
+                      "type": "number"
+                    },
+                    "totalUsersExercisesCount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "example": {
