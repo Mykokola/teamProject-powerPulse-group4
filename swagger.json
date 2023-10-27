@@ -804,7 +804,7 @@
         }
       }
     },
-    "/exercises": {
+    "/exercises/{type}": {
       "get": {
         "security": [
           {
@@ -813,7 +813,7 @@
         ],
         "tags": ["Exercises"],
         "summary": "Get list of exersices",
-        "description": "Returns a list of all exersices",
+        "description": "`type`:body part || equipment || Muscles . one of these values",
         "responses": {
           "200": {
             "description": "A list of exersices",
