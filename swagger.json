@@ -339,20 +339,27 @@
                     "client": {
                       "type": "object",
                       "properties": {
-                        "name": {
+                        "_id": {
                           "type": "string"
                         },
                         "email": {
                           "type": "string"
                         },
-                        "_id": {
+                        "name": {
                           "type": "string"
                         },
-                        "_v": {
+                        "avatar": {
+                          "type": "string"
+                        },
+                        "BMR": {
                           "type": "number"
                         },
-                        "height": {
-                          "type": "number"
+                        "birthday": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "blood": {
+                          "type": "integer"
                         },
                         "currentWeight": {
                           "type": "number"
@@ -360,27 +367,21 @@
                         "desiredWeight": {
                           "type": "number"
                         },
-                        "birthday": {
-                          "type": "string",
-                          "format": "date",
-                          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
-                        },
-                        "blood": {
-                          "type": "number"
-                        },
-                        "sex": {
-                          "type": "string"
+                        "height": {
+                          "type": "integer"
                         },
                         "levelActivity": {
-                          "type": "number"
+                          "type": "integer"
                         },
-                        "BMR": {
-                          "type": "number"
+                        "sex": {
+                          "type": "string",
+                          "enum": ["male", "female"]
                         },
                         "timeForSport": {
-                          "type": "number"
+                          "type": "integer"
                         }
-                      }
+                      },
+                      "required": ["_id", "email", "name"]
                     }
                   },
                   "example": {
@@ -388,7 +389,7 @@
                       "_id": "6537dcf0ab10068d0d3e9897",
                       "email": "1223test@gmail.com",
                       "name": "mymykola",
-                      "__v": 0,
+                      "avatar": "https://res.cloudinary.com/dvmmkonxh/image/upload/v1698254815/power-pulse/avatars/65394cedcaac570962a144d2.jpg",
                       "BMR": 2170,
                       "birthday": "2003-10-10T00:00:00.000Z",
                       "blood": 4,
