@@ -446,6 +446,7 @@
                 }
               }
             },
+
             "application/json": {
               "schema": {
                 "type": "object",
@@ -460,27 +461,31 @@
         },
         "responses": {
           "200": {
-            "description": "update name or avatar",
+            "description": "successful login",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "type": {
-                      "object": null
-                    },
-                    "properties": {
-                      "message": {
-                        "type": "string"
+                    "client": {
+                      "type": "object",
+                      "properties": {
+                        "avatar": {
+                          "type": "string",
+                          "format": "url"
+                        }
                       }
                     }
                   }
+                },
+                "example": {
+                  "avatar": "https://res.cloudinary.com/dvmmkonxh/image/upload/v1698254815/power-pulse/avatars/65394cedcaac570962a144d2.jpg"
                 }
               }
             }
           },
           "404": {
-            "description": "Не знайдено",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
