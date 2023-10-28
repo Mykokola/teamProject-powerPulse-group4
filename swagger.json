@@ -180,22 +180,68 @@
                         "_id": {
                           "type": "string"
                         },
-                        "_v": {
+                        "avatar": {
+                          "type": "string",
+                          "format": "url"
+                        },
+                        "BMR": {
                           "type": "number"
+                        },
+                        "birthday": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "blood": {
+                          "type": "integer"
+                        },
+                        "currentWeight": {
+                          "type": "number"
+                        },
+                        "desiredWeight": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "levelActivity": {
+                          "type": "integer"
+                        },
+                        "sex": {
+                          "type": "string",
+                          "enum": ["male", "female"]
+                        },
+                        "timeForSport": {
+                          "type": "integer"
                         }
-                      }
+                      },
+                      "required": [
+                        "name",
+                        "email",
+                        "_id",
+                        "avatar",
+                        "BMR",
+                        "birthday",
+                        "blood",
+                        "currentWeight",
+                        "desiredWeight",
+                        "height",
+                        "levelActivity",
+                        "sex",
+                        "timeForSport"
+                      ]
                     },
                     "token": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "required": ["client", "token"]
                 },
                 "example": {
                   "client": {
                     "_id": "6537dcf0ab10068d0d3e9897",
                     "email": "1223test@gmail.com",
                     "name": "mymykola",
-                    "__v": 0,
+                    "avatar": "https://res.cloudinary.com/dvmmkonxh/image/upload/v1698254815/power-pulse/avatars/65394cedcaac570962a144d2.jpg",
                     "BMR": 2170,
                     "birthday": "2003-10-10T00:00:00.000Z",
                     "blood": 4,
