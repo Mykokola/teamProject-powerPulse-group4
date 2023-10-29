@@ -98,6 +98,9 @@
                         },
                         "email": {
                           "type": "string"
+                        },
+                        "registrationDate": {
+                          "type": "string"
                         }
                       }
                     },
@@ -109,7 +112,8 @@
                 "example": {
                   "client": {
                     "email": "12233test@gmail.com",
-                    "name": "Ivasuk"
+                    "name": "Ivasuk",
+                    "registrationDate": "2023-10-29T13:38:26.340Z"
                   },
                   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTM3ZjVlN2YwYzIxNjA5Yzc5M2NjY2YiLCJpYXQiOjE2OTgxNjYyNDcsImV4cCI6MTY5ODIzODI0N30.mKzizoialddNQG5OSXoEfvfoXtp38fZuyvbxdwwbQVw"
                 }
@@ -120,6 +124,9 @@
             "description": "Not Found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -212,6 +219,9 @@
                         },
                         "timeForSport": {
                           "type": "integer"
+                        },
+                        "registrationDate": {
+                          "type": "string"
                         }
                       },
                       "required": [
@@ -250,7 +260,8 @@
                     "height": 155,
                     "levelActivity": 4,
                     "sex": "male",
-                    "timeForSport": 110
+                    "timeForSport": 110,
+                    "registrationDate": "2023-10-29T13:38:26.340Z"
                   },
                   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTM3ZGNmMGFiMTAwNjhkMGQzZTk4OTciLCJpYXQiOjE2OTgxNjU3ODUsImV4cCI6MTY5ODIzNzc4NX0.2113-G0zi1aO2HyHcgLPoKo7ht_l47nW1omoUw6DyYA"
                 }
@@ -261,6 +272,9 @@
             "description": "Not Found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -379,6 +393,9 @@
                         },
                         "timeForSport": {
                           "type": "integer"
+                        },
+                        "registrationDate": {
+                          "type": "string"
                         }
                       },
                       "required": ["_id", "email", "name"]
@@ -398,7 +415,26 @@
                       "height": 155,
                       "levelActivity": 4,
                       "sex": "male",
-                      "timeForSport": 110
+                      "timeForSport": 110,
+                      "registrationDate": "2023-10-29T13:38:26.340Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
                     }
                   }
                 }
@@ -406,9 +442,12 @@
             }
           },
           "404": {
-            "description": "Not found",
+            "description": "Not Found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -484,10 +523,31 @@
               }
             }
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not Found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -510,10 +570,10 @@
           }
         ],
         "tags": ["Identification"],
-        "summary": "get current user",
+        "summary": "Get current user",
         "responses": {
           "200": {
-            "description": "current user an avatar can also be displayed if there is one",
+            "description": "Current user information",
             "content": {
               "application/json": {
                 "schema": {
@@ -531,11 +591,19 @@
                         "_id": {
                           "type": "string"
                         },
-                        "_v": {
+                        "avatar": {
+                          "type": "string",
+                          "format": "url"
+                        },
+                        "BMR": {
                           "type": "number"
                         },
-                        "height": {
-                          "type": "number"
+                        "birthday": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "blood": {
+                          "type": "integer"
                         },
                         "currentWeight": {
                           "type": "number"
@@ -543,25 +611,74 @@
                         "desiredWeight": {
                           "type": "number"
                         },
-                        "birthday": {
-                          "type": "string"
-                        },
-                        "blood": {
+                        "height": {
                           "type": "number"
-                        },
-                        "sex": {
-                          "type": "string"
                         },
                         "levelActivity": {
-                          "type": "number"
+                          "type": "integer"
                         },
-                        "BMR": {
-                          "type": "number"
+                        "sex": {
+                          "type": "string",
+                          "enum": ["male", "female"]
                         },
                         "timeForSport": {
-                          "type": "number"
+                          "type": "integer"
+                        },
+                        "registrationDate": {
+                          "type": "string"
                         }
-                      }
+                      },
+                      "required": [
+                        "name",
+                        "email",
+                        "_id",
+                        "avatar",
+                        "BMR",
+                        "birthday",
+                        "blood",
+                        "currentWeight",
+                        "desiredWeight",
+                        "height",
+                        "levelActivity",
+                        "sex",
+                        "timeForSport"
+                      ]
+                    }
+                  }
+                },
+                "example": {
+                  "client": {
+                    "_id": "6537dcf0ab10068d0d3e9897",
+                    "email": "1223test@gmail.com",
+                    "name": "mymykola",
+                    "avatar": "https://res.cloudinary.com/dvmmkonxh/image/upload/v1698254815/power-pulse/avatars/65394cedcaac570962a144d2.jpg",
+                    "BMR": 2170,
+                    "birthday": "2003-10-10T00:00:00.000Z",
+                    "blood": 4,
+                    "currentWeight": 55,
+                    "desiredWeight": 55,
+                    "height": 155,
+                    "levelActivity": 4,
+                    "sex": "male",
+                    "timeForSport": 110,
+                    "registrationDate": "2023-10-29T13:38:26.340Z"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
                     }
                   }
                 }
@@ -569,9 +686,12 @@
             }
           },
           "404": {
-            "description": "Не знайдено",
+            "description": "Not Found",
             "content": {
               "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
                 "schema": {
                   "type": "object",
                   "properties": {

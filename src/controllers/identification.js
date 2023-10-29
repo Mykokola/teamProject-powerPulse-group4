@@ -161,7 +161,7 @@ const currentUser = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     res.clearCookie("jwt");
-    res.status(204).json({
+    res.status(200).json({
       message: "Success logout",
     });
   } catch (e) {
