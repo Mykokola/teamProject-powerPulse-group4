@@ -1,51 +1,56 @@
-const { number } = require('joi')
-const {Schema,model} = require('mongoose')
-const clientSchema = new Schema({
-    email:{
-        type:String,
-        require:[true,'email is require']
+const { number } = require("joi");
+const { Schema, model } = require("mongoose");
+const clientSchema = new Schema(
+  {
+    email: {
+      type: String,
+      require: [true, "email is require"],
     },
-    name:{
-        type:String,
-        require:[true,'name is require']
+    name: {
+      type: String,
+      require: [true, "name is require"],
     },
-    password:{
-        type:String,
-        require:[true,'password is require']
+    password: {
+      type: String,
+      require: [true, "password is require"],
     },
-    avatar:{
-        type:String,
-        require:[false]
+    avatar: {
+      type: String,
+      require: [false],
     },
-    height:{
-        type:Number,
+    height: {
+      type: Number,
     },
-    currentWeight:{
-        type:Number,
+    currentWeight: {
+      type: Number,
     },
-    desiredWeight:{
-        type:Number,
+    desiredWeight: {
+      type: Number,
     },
-    birthday:{
-        type:Date,
+    birthday: {
+      type: Date,
     },
-    blood:{
-        type:Number,
+    blood: {
+      type: Number,
     },
-    sex:{
-        type:String,
+    sex: {
+      type: String,
     },
-    levelActivity:{
-        type:Number,
+    levelActivity: {
+      type: Number,
     },
-    BMR:{
-        type:Number
+    BMR: {
+      type: Number,
     },
-    timeForSport:{
-        type:Number
-    }
+    timeForSport: {
+      type: Number,
+    },
+    registrationDate: {
+      type: Date,
+    },
+  },
+  { versionKey: false }
+);
 
-},{ versionKey: false })
-
-const clientModel = model('clients',clientSchema)
-module.exports = clientModel
+const clientModel = model("clients", clientSchema);
+module.exports = clientModel;
