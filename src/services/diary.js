@@ -9,7 +9,10 @@ const currentClientDiary = async (option) => {
     const clientDairy = await dairyModel.find(option)
     return clientDairy[0]
 }
-
+const updateDiaryClient = async (_id,data) => {
+  const client = await dairyModel.findOneAndUpdate({clientId:_id},data)
+  return client
+}
 const updateById = async (_id,data) => {
     const updateClient = await dairyModel.findByIdAndUpdate({_id},data)
     return updateClient
@@ -30,7 +33,6 @@ const updateInDiaryProduct = async (clientId, productId, updatedData) => {
       { $set: { 'consumedProduct.$': updatedData } }, // Оновіть елемент масиву exerciseDone
       { new: true }
     );
-    console.log(updateClient)
     return updateClient;
   };
 
@@ -70,5 +72,6 @@ module.exports = {
     deleteInDiaryProduct,
     currentClientDiary,
     updateInDiaryProduct,
-    deleteDiaryExercise
+    deleteDiaryExercise,
+    updateDiaryClient
 }

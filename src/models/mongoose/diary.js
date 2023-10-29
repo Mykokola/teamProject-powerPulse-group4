@@ -11,6 +11,30 @@ const dairySchema = new Schema({
         exerciseDone:{
             type:Array,
             default:[]
+        },
+        BMR:{
+            type:Number,
+            default:[]
+        },
+        timeForSport:{
+            type:Number,
+            default:110
+        },
+        caloriesConsumed:{
+            type:Number,
+            default:[]
+        },
+        caloriesRest:{
+            type:Number,
+            default:[]
+        },
+        caloriesBurned :{
+            type:Number,
+            default:[]
+        },
+        restSport:{
+            type:Number,
+            default:[]
         }
         
 },{ versionKey: false })

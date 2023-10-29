@@ -135,7 +135,8 @@ const dairyDateInfo = async (req, res, next) => {
   try {
 
     const option = req.params;
-    const { _id } = req.user;
+    const { _id,BMR,timeForSport} = req.user;
+
     if (validateSchema.datePattern.validate(option).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
         message: validateSchema.datePattern.validate(option).error.details[0].message,
@@ -152,8 +153,23 @@ const dairyDateInfo = async (req, res, next) => {
     currentClientDiary.exerciseDone = currentClientDiary.exerciseDone.filter(
       (elem) => elem.date == option.date
     );
+      const caloriesConsumed = currentClientDiary.consumedProduct.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.calories
+      },0);
+      const caloriesRest = BMR - caloriesConsumed
+      const  caloriesBurned = currentClientDiary.exerciseDone.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.calories
+      },0);
+      const restSport = currentClientDiary.exerciseDone.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.time
+      },0);
+      const dataClientDiary = {BMR,timeForSport,caloriesConsumed,caloriesRest,caloriesBurned,restSport}
+    await diaryService.updateDiaryClient(_id,{...dataClientDiary})
+    const updateUser = await diaryService.currentClientDiary({
+      clientId: _id,
+    });
     res.status(200).json({
-      diary: currentClientDiary,
+      diary: updateUser,
     });
   } catch (e) {
     next(e);
