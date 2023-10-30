@@ -1,26 +1,30 @@
 const { ctrlWrapper } = require("../utils");
 const statistic = require("../services/statistics");
 const exerciseService = require("../services/exercises");
-const requestError = require('../utils/requestError')
-
+const requestError = require("../utils/requestError");
 
 const getStatisticInfo = async (req, res, next) => {
   try {
-    const clientsData = await statistic.allUsers();;
-    const exercisesData =  await exerciseService.getAllExercises();
-    const diaryData =await statistic.diaryDetails();
+    const clientsData = await statistic.allUsers();
+    const exercisesData = await exerciseService.getAllExercises();
+    const diaryData = await statistic.diaryDetails();
 
     if (!clientsData || !exercisesData || !diaryData) {
       requestError();
     }
     const usersCount = clientsData.length;
     const trainingsQuantity = exercisesData.length;
+
+    // const totalBurnedCalories = diaryData.reduce((sum, item) => {
+    //   const exerciseCalories = item.exerciseDone.reduce(
+    //     (exerciseCaloriesSum, exercise) => exerciseCaloriesSum + exercise.burnedCalories,
+    //     0
+    //   );
+    //   return sum + exerciseCalories;
+    // }, 0);
+
     const totalBurnedCalories = diaryData.reduce((sum, item) => {
-      const exerciseCalories = item.exerciseDone.reduce(
-        (exerciseCaloriesSum, exercise) => exerciseCaloriesSum + exercise.calories,
-        0
-      );
-      return sum + exerciseCalories;
+      return sum + item.toObject().caloriesBurned;
     }, 0);
 
     const totalTrainingHours = diaryData.reduce((sum, item) => {
