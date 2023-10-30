@@ -146,6 +146,12 @@ const dairyDateInfo = async (req, res, next) => {
     const currentClientDiary = await diaryService.currentClientDiary({
       clientId: _id,
     });
+    if(!currentClientDiary){
+      const error = createError(ERROR_TYPES.NOT_FOUND,{
+        message:"user is not a found"
+      })
+      throw error
+    }
     currentClientDiary.consumedProduct =
       currentClientDiary.consumedProduct.filter(
         (elem) => elem.date == option.date
