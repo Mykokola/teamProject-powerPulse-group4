@@ -3,16 +3,20 @@ const createError = require("../utils/createError");
 const ERROR_TYPES = require("../constants/ERROR_CODES");
 const productService = require("../services/products");
 
-
 const getAllProducts = async (req, res, next) => {
+  const { page = 1, limit = 20 } = req.query;
+  const parsedPage = parseInt(page);
+  const parsedLimit = parseInt(limit);
+
   try {
-    const products = await productService.allProducts();
-    if (!products) {
-      const error = createError(ERROR_TYPES.NOT_FOUND, {
-        message: "Not found",
+    const products = await productService.allProducts(parsedPage, parsedLimit);
+
+    if (products.length === 0) {
+      return res.status(404).json({
+        error: "Not found",
       });
-      throw error;
     }
+
     res.json(products);
   } catch (e) {
     next(e);
