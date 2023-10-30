@@ -1,6 +1,11 @@
 const { productsAll, productsAllCategories } = require("../models/mongoose/products");
 
-const allProducts = async (page, limit) => {
+const allProducts = async () => {
+  const products = await productsAll.find();
+  return products;
+};
+
+const paginatedProducts = async (page, limit) => {
   const skip = (page - 1) * limit;
   const products = await productsAll.find().skip(skip).limit(limit);
   return products;
@@ -23,6 +28,7 @@ const allCategories = async () => {
 
 module.exports = {
   allProducts,
+  paginatedProducts,
   allProductsBloodSearch,
   allCategories,
   getProductById,

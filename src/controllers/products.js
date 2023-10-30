@@ -9,7 +9,7 @@ const getAllProducts = async (req, res, next) => {
   const parsedLimit = parseInt(limit);
 
   try {
-    const products = await productService.allProducts(parsedPage, parsedLimit);
+    const products = await productService.paginatedProducts(parsedPage, parsedLimit);
 
     if (products.length === 0) {
       return res.status(404).json({
