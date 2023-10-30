@@ -34,7 +34,6 @@ const saveProduct = async (req, res, next) => {
     productFromBd.date = product.date
     productFromBd.groupBloodNotAllowed = productFromBd.groupBloodNotAllowed[blood]
     await diaryService.addInDiaryProduct(_id, { ...productFromBd, id: nanoid() });
-    console.log(req.user)
 
     res.status(200).json({ message: "product was add" });
   } catch (e) {
