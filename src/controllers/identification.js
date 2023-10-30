@@ -130,8 +130,9 @@ const upload = async (req, res, next) => {
       throw error;
     }
     if (req.body.name) {
-      const updateClient = await authService.updateClientById(_id, name);
-      updateElem.name = updateClient.name;
+       await authService.updateClientById(_id, name);
+       const currentClient = await authService.getClientByOptions({ _id: req.user._id });
+       updateElem.name = currentClient.name;
       message = "name was update";
     } else {
       const { path } = file;
