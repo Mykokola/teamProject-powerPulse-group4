@@ -1355,8 +1355,26 @@
               }
             }
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Not found",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "example": {
@@ -1430,8 +1448,26 @@
               }
             }
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Not found",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "example": {
@@ -1490,8 +1526,26 @@
               }
             }
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Not found",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "example": {
@@ -1550,8 +1604,26 @@
               }
             }
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Not found",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "example": {
@@ -1609,9 +1681,6 @@
                         "clientId": {
                           "type": "string"
                         },
-                        "__v": {
-                          "type": "number"
-                        },
                         "consumedProduct": {
                           "type": "array"
                         },
@@ -1622,7 +1691,6 @@
                       "example": {
                         "_id": "65382f75584555dfbc2cfb16",
                         "clientId": "653567572c6e5ea5140c44a7",
-                        "__v": 0,
                         "consumedProduct": [],
                         "exerciseDone": []
                       }
@@ -1632,8 +1700,26 @@
               }
             }
           },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Not found",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "example": {
