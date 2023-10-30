@@ -28,7 +28,7 @@ const saveProduct = async (req, res, next) => {
       throw error
     }
     productFromBd= productFromBd.toObject()
-    productFromBd.calories  = product.calories
+    productFromBd.burnedCalories  = product.calories
     delete productFromBd.weight
     productFromBd.amount = product.amount
     productFromBd.date = product.date
@@ -64,7 +64,7 @@ const saveExercise = async (req, res, next) => {
     exerciseFromBd = exerciseFromBd.toObject()
     exerciseFromBd.time = exercise.time
     delete exerciseFromBd.burnedCalories
-    exerciseFromBd.calories = exercise.calories
+    exerciseFromBd.burnedCalories = exercise.calories
     exerciseFromBd.date = exercise.date
     await diaryService.addInDiaryExercise(_id, {...exerciseFromBd,id: nanoid() });
     res.status(200).json({ message: "exercise was add" });
@@ -161,11 +161,11 @@ const dairyDateInfo = async (req, res, next) => {
       (elem) => elem.date == option.date
     );
       const caloriesConsumed = currentClientDiary.consumedProduct.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.calories
+        return accumulator + currentValue.burnedCalories
       },0);
       const caloriesRest = BMR - caloriesConsumed
       const  caloriesBurned = currentClientDiary.exerciseDone.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.calories
+        return accumulator + currentValue.burnedCalories
       },0);
       const restSport = currentClientDiary.exerciseDone.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.time
