@@ -9,7 +9,7 @@ const { nanoid } = require("nanoid");
 const saveProduct = async (req, res, next) => {
   try {
     const product = req.body;
-    const { _id } = req.user;
+    const { _id ,blood} = req.user;
     if (validateSchema.productPattern.validate(product).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
         message: validateSchema.productPattern.validate(product).error.details[0].message,
@@ -32,7 +32,9 @@ const saveProduct = async (req, res, next) => {
     delete productFromBd.weight
     productFromBd.amount = product.amount
     productFromBd.date = product.date
+    productFromBd.groupBloodNotAllowed = productFromBd.groupBloodNotAllowed[blood]
     await diaryService.addInDiaryProduct(_id, { ...productFromBd, id: nanoid() });
+    console.log(req.user)
 
     res.status(200).json({ message: "product was add" });
   } catch (e) {
