@@ -897,6 +897,136 @@
         }
       }
     },
+    "/products/filter-product": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "category",
+            "optional": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "recommendation",
+            "in": "query",
+            "description": "recommendation",
+            "optional": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "optional": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "tags": ["Products"],
+        "summary": "Get list of products",
+        "description": "Returns a list of all products",
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "content": {
+              "application/json": {
+                "example": "[{\"_id\":\"12345\", \"weight\":\"100\", \"calories\":\"340\", \"category\":\"diary\",  \"title\":\"Danbo cheese\", \"groupBloodNotAllowed\":{\"1\":\"true\",\"2\":\"true\",\"3\":\"true\",\"4\":\"true\"}}]",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "weight": {
+                        "type": "string"
+                      },
+                      "calories": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "groupBloodNotAllowed": {
+                        "type": "object",
+                        "properties": {
+                          "1": {
+                            "type": "string"
+                          },
+                          "2": {
+                            "type": "string"
+                          },
+                          "3": {
+                            "type": "string"
+                          },
+                          "4": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not authorized"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Not found"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/products/available-blood-products/{type}": {
       "get": {
         "security": [
