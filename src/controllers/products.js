@@ -90,7 +90,7 @@ const filterProduct = async (req, res, next) => {
       );
     }
     if(filterOptions.recommendation&&filterOptions.recommendation !== 'all'){
-      let recomendOption = filterOptions.recommendation === "recommended"
+      let recomendOption = filterOptions.recommendation === "recommend"
       productsList = productsList.filter(e => e.groupBloodNotAllowed[blood] === recomendOption)
     }
     if(filterOptions.search){
