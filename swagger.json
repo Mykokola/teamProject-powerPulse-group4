@@ -1333,6 +1333,7 @@
         ],
         "tags": ["Diary"],
         "summary": "Save product",
+        "description": "Addition you can add specific date, it's not required parameters \"date\": \"YYYY-MM-DD \" ",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1425,6 +1426,8 @@
           }
         ],
         "summary": "save exercise",
+        "description": "Addition you can add specific date, it's not required parameters \"date\": \"YYYY-MM-DD \" ",
+
         "tags": ["Diary"],
         "requestBody": {
           "content": {
