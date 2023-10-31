@@ -154,14 +154,20 @@ const dairyDateInfo = async (req, res, next) => {
       throw error
     }
 
-      const caloriesConsumed = currentClientDiary.consumedProduct.reduce((accumulator, currentValue) => {
+      const caloriesConsumed = currentClientDiary.consumedProduct.filter(
+        (elem) => elem.date == option.date
+      ).reduce((accumulator, currentValue) => {
         return accumulator + currentValue.calories
       },0);
       const caloriesRest = BMR - caloriesConsumed
-      const  caloriesBurned = currentClientDiary.exerciseDone.reduce((accumulator, currentValue) => {
+      const  caloriesBurned = currentClientDiary.exerciseDone.filter(
+    (elem) => elem.date == option.date
+  ).reduce((accumulator, currentValue) => {
         return accumulator + currentValue.burnedCalories
       },0);
-      const restSport = currentClientDiary.exerciseDone.reduce((accumulator, currentValue) => {
+      const restSport = currentClientDiary.exerciseDone.filter(
+        (elem) => elem.date == option.date
+      ).reduce((accumulator, currentValue) => {
         return accumulator + currentValue.time
       },0);
       const dataClientDiary = {BMR,timeForSport,caloriesConsumed,caloriesRest,caloriesBurned,restSport}
