@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "Power plus",
-    "description": "backend for react app Power plus"
+    "title": "Power Pulse",
+    "description": "backend for react app Power Pulse"
   },
   "servers": [
     {
@@ -1651,22 +1651,23 @@
           }
         ],
         "tags": ["Diary"],
-        "summary": "receive the products and are entitled to the selected date as we are given as an option",
+        "summary": "Retrieve the diary information for a specific date",
         "parameters": [
           {
-            "name": "Date",
+            "name": "date",
             "in": "path",
-            "description": "Type a date",
+            "description": "Type a date in the format 'YYYY-MM-DD'",
             "example": "2003-10-10",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "date"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "receive the products and are entitled to the selected date as we are given as an option",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -1682,57 +1683,169 @@
                           "type": "string"
                         },
                         "consumedProduct": {
-                          "type": "array"
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string"
+                              },
+                              "calories": {
+                                "type": "number"
+                              },
+                              "category": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "groupBloodNotAllowed": {
+                                "type": "boolean"
+                              },
+                              "burnedCalories": {
+                                "type": "number"
+                              },
+                              "amount": {
+                                "type": "number"
+                              },
+                              "date": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "id": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "_id",
+                              "calories",
+                              "category",
+                              "title",
+                              "groupBloodNotAllowed",
+                              "burnedCalories",
+                              "amount",
+                              "date",
+                              "id"
+                            ]
+                          }
                         },
                         "exerciseDone": {
-                          "type": "array"
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string"
+                              },
+                              "bodyPart": {
+                                "type": "string"
+                              },
+                              "equipment": {
+                                "type": "string"
+                              },
+                              "gifUrl": {
+                                "type": "string",
+                                "format": "url"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "target": {
+                                "type": "string"
+                              },
+                              "time": {
+                                "type": "number"
+                              },
+                              "burnedCalories": {
+                                "type": "number"
+                              },
+                              "date": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "id": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "_id",
+                              "bodyPart",
+                              "equipment",
+                              "gifUrl",
+                              "name",
+                              "target",
+                              "time",
+                              "burnedCalories",
+                              "date",
+                              "id"
+                            ]
+                          }
                         }
                       },
-                      "example": {
-                        "_id": "65382f75584555dfbc2cfb16",
-                        "clientId": "653567572c6e5ea5140c44a7",
-                        "consumedProduct": [
-                          {
-                            "_id": "5d51694902b2373622ff5d34",
-                            "calories": 100,
-                            "category": "vegetables and herbs",
-                            "title": "dried potatoes",
-                            "groupBloodNotAllowed": false,
-                            "burnedCalories": 298,
-                            "amount": 100,
-                            "date": "2003-10-10",
-                            "id": "u8hzuWM0YszfwRm3gCten"
-                          }
-                        ],
-                        "exerciseDone": [
-                          {
-                            "_id": "64f2458d6f67bc34bae4f813",
-                            "bodyPart": "upper arms",
-                            "equipment": "barbell",
-                            "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0038.gif",
-                            "name": "barbell drag curl",
-                            "target": "biceps",
-                            "time": 60,
-                            "burnedCalories": 80,
-                            "date": "2003-10-10",
-                            "id": "TbD4vyfWtMxT1nWMbK4Wp"
-                          }
-                        ],
-                        "timeForSport": 110,
-                        "BMR": 2170,
-                        "caloriesBurned": 1774,
-                        "caloriesConsumed": 1344,
-                        "caloriesRest": 826,
-                        "restSport": 124
-                      }
+                      "required": ["_id", "clientId", "consumedProduct", "exerciseDone"]
+                    },
+                    "timeForSport": {
+                      "type": "number"
+                    },
+                    "BMR": {
+                      "type": "number"
+                    },
+                    "caloriesBurned": {
+                      "type": "number"
+                    },
+                    "caloriesConsumed": {
+                      "type": "number"
+                    },
+                    "caloriesRest": {
+                      "type": "number"
+                    },
+                    "restSport": {
+                      "type": "number"
                     }
+                  },
+                  "example": {
+                    "_id": "65382f75584555dfbc2cfb16",
+                    "clientId": "653567572c6e5ea5140c44a7",
+                    "consumedProduct": [
+                      {
+                        "_id": "5d51694902b2373622ff5d34",
+                        "calories": 100,
+                        "category": "vegetables and herbs",
+                        "title": "dried potatoes",
+                        "groupBloodNotAllowed": false,
+                        "burnedCalories": 298,
+                        "amount": 100,
+                        "date": "2003-10-10",
+                        "id": "u8hzuWM0YszfwRm3gCten"
+                      }
+                    ],
+                    "exerciseDone": [
+                      {
+                        "_id": "64f2458d6f67bc34bae4f813",
+                        "bodyPart": "upper arms",
+                        "equipment": "barbell",
+                        "gifUrl": "https://ftp.goit.study/img/power-pulse/gifs/0038.gif",
+                        "name": "barbell drag curl",
+                        "target": "biceps",
+                        "time": 60,
+                        "burnedCalories": 80,
+                        "date": "2003-10-10",
+                        "id": "TbD4vyfWtMxT1nWMbK4Wp"
+                      }
+                    ],
+                    "timeForSport": 110,
+                    "BMR": 2170,
+                    "caloriesBurned": 1774,
+                    "caloriesConsumed": 1344,
+                    "caloriesRest": 826,
+                    "restSport": 124
                   }
                 }
               }
             }
           },
           "401": {
-            "description": "Not authorized",
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "example": {
