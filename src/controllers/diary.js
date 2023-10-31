@@ -153,15 +153,9 @@ const dairyDateInfo = async (req, res, next) => {
       })
       throw error
     }
-    currentClientDiary.consumedProduct =
-      currentClientDiary.consumedProduct.filter(
-        (elem) => elem.date == option.date
-      );
-    currentClientDiary.exerciseDone = currentClientDiary.exerciseDone.filter(
-      (elem) => elem.date == option.date
-    );
+
       const caloriesConsumed = currentClientDiary.consumedProduct.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.burnedCalories
+        return accumulator + currentValue.calories
       },0);
       const caloriesRest = BMR - caloriesConsumed
       const  caloriesBurned = currentClientDiary.exerciseDone.reduce((accumulator, currentValue) => {
@@ -172,9 +166,16 @@ const dairyDateInfo = async (req, res, next) => {
       },0);
       const dataClientDiary = {BMR,timeForSport,caloriesConsumed,caloriesRest,caloriesBurned,restSport}
     await diaryService.updateDiaryClient(_id,{...dataClientDiary})
-    const updateUser = await diaryService.currentClientDiary({
+    const updateUser = (await diaryService.currentClientDiary({
       clientId: _id,
-    });
+    })).toObject();
+    updateUser.consumedProduct  =
+    updateUser.consumedProduct.filter(
+      (elem) => elem.date == option.date
+    );
+    updateUser.exerciseDone =  updateUser.exerciseDone.filter(
+    (elem) => elem.date == option.date
+  );
     res.status(200).json({
       diary: updateUser,
     });
