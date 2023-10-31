@@ -24,7 +24,10 @@ const getStatisticInfo = async (req, res, next) => {
     // }, 0);
 
     const totalBurnedCalories = diaryData.reduce((sum, item) => {
-      return sum + item.toObject().caloriesBurned;
+      if (item.toObject().caloriesBurned !== undefined) {
+        return sum + item.toObject().caloriesBurned;
+      }
+      return sum;
     }, 0);
 
     const totalTrainingHours = diaryData.reduce((sum, item) => {
