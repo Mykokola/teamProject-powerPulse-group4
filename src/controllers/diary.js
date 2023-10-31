@@ -28,7 +28,7 @@ const saveProduct = async (req, res, next) => {
       throw error
     }
     productFromBd= productFromBd.toObject()
-    productFromBd.burnedCalories  = product.calories
+    productFromBd.calories  = product.calories
     delete productFromBd.weight
     productFromBd.amount = product.amount
     productFromBd.date = product.date
