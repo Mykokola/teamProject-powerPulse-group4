@@ -10,18 +10,20 @@ Our system is built using modern technologies such as Node.js to create a powerf
 
 # Development team :
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mykokola) `Team Lead` Mykola Vladymyrskiy
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mykokola)
+`Team Lead` Mykola Vladymyrskiy
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ifedchenko) `Full Stack Developer` Iurii Fedchenko
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ifedchenko)
+`Full Stack Developer` Iurii Fedchenko
 
 ### Commands:
 
-- `npm install` &mdash; start
-- `npm run start` &mdash; server start in production mode
-- `npm run dev` &mdash; start the server in development mode
-- `npm run lint` &mdash; run a code check execution with eslint is necessary run
-  before each PR and fix all linter errors
-- `npm lint:fix` &mdash; same linter check but with automatic ones corrections
-  of simple errors
+`npm install` &mdash; start
+`npm run start` &mdash; server start in production mode
+`npm run dev` &mdash; start the server in development mode
+`npm run lint` &mdash; run a code check execution with eslint is necessary run
+before each PR and fix all linter errors
+`npm lint:fix` &mdash; same linter check but with automatic ones corrections
+of simple errors
 
 https://teamproject-powerpulse-group4.onrender.com/api-docs/
