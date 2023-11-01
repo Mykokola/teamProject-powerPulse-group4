@@ -15,14 +15,6 @@ const getStatisticInfo = async (req, res, next) => {
     const usersCount = clientsData.length;
     const trainingsQuantity = exercisesData.length;
 
-    // const totalBurnedCalories = diaryData.reduce((sum, item) => {
-    //   const exerciseCalories = item.exerciseDone.reduce(
-    //     (exerciseCaloriesSum, exercise) => exerciseCaloriesSum + exercise.burnedCalories,
-    //     0
-    //   );
-    //   return sum + exerciseCalories;
-    // }, 0);
-
     const totalBurnedCalories = diaryData.reduce((sum, item) => {
       if (item.toObject().caloriesBurned !== undefined) {
         return sum + item.toObject().caloriesBurned;
