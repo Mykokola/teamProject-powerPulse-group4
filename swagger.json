@@ -805,25 +805,44 @@
           {
             "name": "category",
             "in": "query",
-            "description": "category",
             "optional": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "alcoholic drinks",
+                "berries",
+                "cereals",
+                "dairy",
+                "dried fruits",
+                "eggs",
+                "fish",
+                "flour",
+                "fruits",
+                "meat",
+                "mushrooms",
+                "nuts",
+                "oils and fats",
+                "poppy",
+                "sausage",
+                "seeds",
+                "sesame",
+                "soft drinks",
+                "vegetables and herbs"
+              ]
             }
           },
           {
             "name": "recommendation",
             "in": "query",
-            "description": "recommendation",
             "optional": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": ["all", "recommend", "notRecommend"]
             }
           },
           {
             "name": "search",
             "in": "query",
-            "description": "search",
             "optional": true,
             "schema": {
               "type": "string"
@@ -996,12 +1015,71 @@
         "description": "Return all exercizes matches filter of \"body part\", \"equipment\" or \"target\". Type in \"parameters\" for example \"chest\"",
         "parameters": [
           {
-            "name": "for example type \"chest\"",
+            "name": "type",
             "in": "path",
-            "description": "Parameters of filter",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "nullable": true,
+              "enum": [
+                "cardio",
+                "lower arms",
+                "neck",
+                "upper legs",
+                "shoulders",
+                "upper arms",
+                "back",
+                "chest",
+                "waist",
+                "lower legs",
+                "assisted",
+                "cable",
+                "dumbbell",
+                "ez barbell",
+                "olympic barbell",
+                "skierg machine",
+                "sled machine",
+                "stepmill machine",
+                "weighted",
+                "band",
+                "barbell",
+                "bosu ball",
+                "medicine ball",
+                "resistance band",
+                "roller",
+                "stability ball",
+                "tire",
+                "elliptical machine",
+                "hammer",
+                "kettlebell",
+                "rope",
+                "smith machine",
+                "trap bar",
+                "upper body ergometer",
+                "wheel roller",
+                "body weight",
+                "leverage machine",
+                "stationary bike",
+                "adductors",
+                "delts",
+                "glutes",
+                "quads",
+                "serratus anterior",
+                "abductors",
+                "calves",
+                "cardiovascular system",
+                "forearms",
+                "levator scapulae",
+                "pectorals",
+                "spine",
+                "traps",
+                "abs",
+                "biceps",
+                "lats",
+                "triceps",
+                "upper back",
+                "hamstrings"
+              ]
             }
           }
         ],
@@ -1437,7 +1515,7 @@
         "summary": "delete exercise",
         "parameters": [
           {
-            "name": "Exercise Id",
+            "name": "exerciseId",
             "in": "path",
             "description": "Type exercise ID",
             "required": true,
@@ -1515,7 +1593,7 @@
         "summary": "Delete product",
         "parameters": [
           {
-            "name": "Product Id",
+            "name": "productId",
             "in": "path",
             "description": "Type product ID",
             "required": true,
