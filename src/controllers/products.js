@@ -8,7 +8,8 @@ const getAllProducts = async (req, res, next) => {
   const { page, limit } = req.query;
   const parsedPage = parseInt(page);
   const parsedLimit = parseInt(limit);
-  const filterOptions = req.body;
+  const {category,recommendation} = req.query;
+  const filterOptions = {category,recommendation}
   const { blood } = req.user;
 
   if (validateSchema.productsFilter.validate(filterOptions).error) {
@@ -37,10 +38,6 @@ const getAllProducts = async (req, res, next) => {
         (e) => e.groupBloodNotAllowed[blood] === recommendationOption
       );
     }
-    if (filterOptions.search) {
-      productsList = productsList.filter((e) => e.title === filterOptions.search);
-    }
-
     const startIndex = (parsedPage - 1) * parsedLimit;
     const endIndex = parsedPage * parsedLimit;
     const paginatedProducts = productsList.slice(startIndex, endIndex);
