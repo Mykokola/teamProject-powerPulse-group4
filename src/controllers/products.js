@@ -4,29 +4,6 @@ const ERROR_TYPES = require("../constants/ERROR_CODES");
 const productService = require("../services/products");
 const validateSchema = require("../models/joi/products");
 
-// const getAllProducts = async (req, res, next) => {
-//   const { page = 1, limit = 20 } = req.query;
-//   const parsedPage = parseInt(page);
-//   const parsedLimit = parseInt(limit);
-
-//   try {
-//     const products = await productService.paginatedProducts(
-//       parsedPage,
-//       parsedLimit
-//     );
-
-//     if (products.length === 0) {
-//       return res.status(404).json({
-//         error: "Not found",
-//       });
-//     }
-
-//     res.json(products);
-//   } catch (e) {
-//     next(e);
-//   }
-// };
-
 const getAllProducts = async (req, res, next) => {
   const { page, limit } = req.query;
   const parsedPage = parseInt(page);
@@ -49,25 +26,33 @@ const getAllProducts = async (req, res, next) => {
   }
 
   try {
-    let productsList = await productService.paginatedProducts(parsedPage, parsedLimit);
+    let productsList = await productService.paginatedProducts(1, Infinity);
+
     if (filterOptions.category) {
       productsList = productsList.filter((e) => e.category === filterOptions.category);
     }
     if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
-      const recomendOption = filterOptions.recommendation === "recommend";
-      productsList = productsList.filter((e) => e.groupBloodNotAllowed[blood] === recomendOption);
+      const recommendationOption = filterOptions.recommendation === "recommend";
+      productsList = productsList.filter(
+        (e) => e.groupBloodNotAllowed[blood] === recommendationOption
+      );
     }
     if (filterOptions.search) {
       productsList = productsList.filter((e) => e.title === filterOptions.search);
     }
-    if (productsList.length === 0) {
+
+    const startIndex = (parsedPage - 1) * parsedLimit;
+    const endIndex = parsedPage * parsedLimit;
+    const paginatedProducts = productsList.slice(startIndex, endIndex);
+
+    if (paginatedProducts.length === 0) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
-        message: "prodcut is not a found",
+        message: "product is not found",
       });
       throw error;
     }
 
-    res.status(200).json(productsList);
+    res.status(200).json(paginatedProducts);
   } catch (e) {
     next(e);
   }
