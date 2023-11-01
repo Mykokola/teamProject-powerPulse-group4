@@ -27,8 +27,8 @@ const getAllProducts = async (req, res, next) => {
     if (filterOptions.category) {
       productsList = productsList.filter((e) => e.category === filterOptions.category);
     }
-    if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
-      const recommendationOption = filterOptions.recommendation === "recommend";
+    if (filterOptions.recommendation && filterOptions.recommendation !== "All") {
+      const recommendationOption = filterOptions.recommendation === "Recommended";
       productsList = productsList.filter(
         (e) => e.groupBloodNotAllowed[blood] === recommendationOption
       );
