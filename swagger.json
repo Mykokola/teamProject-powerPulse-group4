@@ -837,15 +837,7 @@
             "optional": true,
             "schema": {
               "type": "string",
-              "enum": ["all", "recommend", "notRecommend"]
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "optional": true,
-            "schema": {
-              "type": "string"
+              "enum": ["All", "Recommended", "Not recommended"]
             }
           }
         ],
