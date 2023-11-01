@@ -54,11 +54,11 @@ const getAllProducts = async (req, res, next) => {
       productsList = productsList.filter((e) => e.category === filterOptions.category);
     }
     if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
-      let recomendOption = filterOptions.recommendation === "recommend";
+      const recomendOption = filterOptions.recommendation === "recommend";
       productsList = productsList.filter((e) => e.groupBloodNotAllowed[blood] === recomendOption);
     }
     if (filterOptions.search) {
-      productsList = productsList.filter((e) => e.title == filterOptions.search);
+      productsList = productsList.filter((e) => e.title === filterOptions.search);
     }
     if (productsList.length === 0) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
@@ -117,42 +117,42 @@ const getAvailableProducts = async (req, res, next) => {
     next(error);
   }
 };
-const filterProduct = async (req, res, next) => {
-  try {
-    const filterOptions = req.body;
-    const { blood } = req.user;
-    if (validateSchema.productsFilter.validate(filterOptions).error) {
-      const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message: "body is incorrect",
-      });
-      throw error;
-    }
-    let productsList = await productService.allProducts();
-    if (filterOptions.category) {
-      productsList = productsList.filter((e) => e.category === filterOptions.category);
-    }
-    if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
-      let recomendOption = filterOptions.recommendation === "recommend";
-      productsList = productsList.filter((e) => e.groupBloodNotAllowed[blood] === recomendOption);
-    }
-    if (filterOptions.search) {
-      productsList = productsList.filter((e) => e.title == filterOptions.search);
-    }
-    if (productsList.length === 0) {
-      const error = createError(ERROR_TYPES.NOT_FOUND, {
-        message: "prodcut is not a found",
-      });
-      throw error;
-    }
-    res.status(200).json(productsList);
-  } catch (e) {
-    next(e);
-  }
-};
+// const filterProduct = async (req, res, next) => {
+//   try {
+//     const filterOptions = req.body;
+//     const { blood } = req.user;
+//     if (validateSchema.productsFilter.validate(filterOptions).error) {
+//       const error = createError(ERROR_TYPES.BAD_REQUEST, {
+//         message: "body is incorrect",
+//       });
+//       throw error;
+//     }
+//     let productsList = await productService.allProducts();
+//     if (filterOptions.category) {
+//       productsList = productsList.filter((e) => e.category === filterOptions.category);
+//     }
+//     if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
+//       let recomendOption = filterOptions.recommendation === "recommend";
+//       productsList = productsList.filter((e) => e.groupBloodNotAllowed[blood] === recomendOption);
+//     }
+//     if (filterOptions.search) {
+//       productsList = productsList.filter((e) => e.title == filterOptions.search);
+//     }
+//     if (productsList.length === 0) {
+//       const error = createError(ERROR_TYPES.NOT_FOUND, {
+//         message: "prodcut is not a found",
+//       });
+//       throw error;
+//     }
+//     res.status(200).json(productsList);
+//   } catch (e) {
+//     next(e);
+//   }
+// };
 
 module.exports = {
   getAllProducts: ctrlWrapper(getAllProducts),
   getAllCategories: ctrlWrapper(getAllCategories),
   getAvailableProducts: ctrlWrapper(getAvailableProducts),
-  filterProduct: ctrlWrapper(filterProduct),
+  // filterProduct: ctrlWrapper(filterProduct),
 };
