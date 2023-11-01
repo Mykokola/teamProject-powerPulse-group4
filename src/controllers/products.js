@@ -49,29 +49,25 @@ const getAllProducts = async (req, res, next) => {
   }
 
   try {
-    let products = await productService.paginatedProducts(parsedPage, parsedLimit);
-
+    let productsList = await productService.paginatedProducts(parsedPage, parsedLimit);
     if (filterOptions.category) {
-      products = products.filter((e) => e.category === filterOptions.category);
+      productsList = productsList.filter((e) => e.category === filterOptions.category);
     }
-
     if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
-      const recommendOption = filterOptions.recommendation === "recommend";
-      products = products.filter((e) => e.groupBloodNotAllowed[blood] === recommendOption);
+      let recomendOption = filterOptions.recommendation === "recommend";
+      productsList = productsList.filter((e) => e.groupBloodNotAllowed[blood] === recomendOption);
     }
-
     if (filterOptions.search) {
-      products = products.filter((e) => e.title === filterOptions.search);
+      productsList = productsList.filter((e) => e.title == filterOptions.search);
     }
-
-    if (products.length === 0) {
+    if (productsList.length === 0) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
-        message: "Product is not found",
+        message: "prodcut is not a found",
       });
       throw error;
     }
 
-    res.status(200).json(products);
+    res.status(200).json(productsList);
   } catch (e) {
     next(e);
   }
