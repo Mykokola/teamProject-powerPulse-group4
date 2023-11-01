@@ -1,9 +1,8 @@
 # Node.js app
 
-![Presentation](./assets/main.jpg)
+![Presentation](./src/assets/main.jpg)
 
 ### Description:
-
 
 Backend for a team project .Application name: Power pulsBackend for a team project .Application name: Power puls
 
@@ -11,11 +10,11 @@ Our system is built using modern technologies such as Node.js to create a powerf
 
 # Development team :
 
-- [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mykokola)
-  Mykola Vladymyrskiy **Team Lead**
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mykokola)
+Mykola Vladymyrskiy **Team Lead**
 
-- [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ifedchenko)
-  Iurii Fedchenko **Full Stack Developer**
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ifedchenko)
+Iurii Fedchenko **Full Stack Developer**
 
 ### Commands:
 
@@ -26,6 +25,5 @@ Our system is built using modern technologies such as Node.js to create a powerf
   before each PR and fix all linter errors
 - `npm lint:fix` &mdash; same linter check but with automatic ones corrections
   of simple errors
-
 
 https://teamproject-powerpulse-group4.onrender.com/api-docs/
