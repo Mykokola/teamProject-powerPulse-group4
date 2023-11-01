@@ -97,7 +97,7 @@ const calculateDailyMetrics = async (req, res, next) => {
     const lifestyleClientFactor = lifestyleFactor[levelActivity];
     const userAge = new Date(Date.now() - Date.parse(new Date(birthday))).getUTCFullYear() - 1970;
     const BMR = Math.round(
-      (10 * currentWeight + 6.25 * height - 5 * userAge + (sex == "female" ? 5 : -161)) *
+      (10 * currentWeight + 6.25 * height - 5 * userAge + (sex === "female" ? 5 : -161)) *
         lifestyleClientFactor
     );
     await authService.updateClientById(_id, { ...dailyMetricsData, BMR, timeForSport: 110 });
@@ -130,9 +130,9 @@ const upload = async (req, res, next) => {
       throw error;
     }
     if (req.body.name) {
-       await authService.updateClientById(_id, name);
-       const currentClient = await authService.getClientByOptions({ _id: req.user._id });
-       updateElem.name = currentClient.name;
+      await authService.updateClientById(_id, name);
+      const currentClient = await authService.getClientByOptions({ _id: req.user._id });
+      updateElem.name = currentClient.name;
       message = "name was update";
     } else {
       const { path } = file;
