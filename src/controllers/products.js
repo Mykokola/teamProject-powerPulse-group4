@@ -12,12 +12,7 @@ const getAllProducts = async (req, res, next) => {
   const filterOptions = {category,recommendation}
   const { blood } = req.user;
 
-  if (validateSchema.productsFilter.validate(filterOptions).error) {
-    const error = createError(ERROR_TYPES.BAD_REQUEST, {
-      message: "body is incorrect",
-    });
-    throw error;
-  }
+
 
   if (validateSchema.productsPaginationFilter.validate(req.query).error) {
     const error = createError(ERROR_TYPES.BAD_REQUEST, {
