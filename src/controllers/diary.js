@@ -255,11 +255,9 @@ const dairyDateInfo = async (req, res, next) => {
 
     await diaryService.updateDiaryClient(_id, { ...dataClientDiary });
 
-    const updateUser = (
-      await diaryService.currentClientDiary({
-        clientId: _id,
-      })
-    ).toObject();
+    const updateUser = await diaryService.currentClientDiary({
+      clientId: _id,
+    });
 
     updateUser.consumedProduct = filteredConsumedProduct;
     updateUser.exerciseDone = filteredExerciseDone;
