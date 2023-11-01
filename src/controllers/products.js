@@ -14,7 +14,7 @@ const getAllProducts = async (req, res, next) => {
 
 
 
-  if (validateSchema.productsPaginationFilter.validate(req.query).error) {
+  if (validateSchema.productsPaginationFilter.validate(req.query).error && category !== "") {
     const error = createError(ERROR_TYPES.BAD_REQUEST, {
       message: "query params is incorrect",
     });
