@@ -12,9 +12,7 @@ const saveProduct = async (req, res, next) => {
     const { _id, blood } = req.user;
     if (validateSchema.productPattern.validate(product).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message:
-          validateSchema.productPattern.validate(product).error.details[0]
-            .message,
+        message: validateSchema.productPattern.validate(product).error.details[0].message,
       });
       throw error;
     }
@@ -36,8 +34,7 @@ const saveProduct = async (req, res, next) => {
     delete productFromBd.weight;
     productFromBd.amount = product.amount;
     productFromBd.date = product.date;
-    productFromBd.groupBloodNotAllowed =
-      productFromBd.groupBloodNotAllowed[blood];
+    productFromBd.groupBloodNotAllowed = productFromBd.groupBloodNotAllowed[blood];
     await diaryService.addInDiaryProduct(_id, {
       ...productFromBd,
       id: nanoid(),
@@ -48,20 +45,19 @@ const saveProduct = async (req, res, next) => {
     next(e);
   }
 };
+
 const saveExercise = async (req, res, next) => {
   try {
     const exercise = req.body;
     const { _id } = req.user;
     if (validateSchema.exercisePattern.validate(exercise).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message:
-          validateSchema.exercisePattern.validate(exercise).error.details[0]
-            .message,
+        message: validateSchema.exercisePattern.validate(exercise).error.details[0].message,
       });
       throw error;
     }
     if (!exercise.date) {
-      let date = new Date().toISOString().split("T")[0];
+      const date = new Date().toISOString().split("T")[0];
       exercise.date = date;
     }
     let exerciseFromBd = await exerciseService.getExerciseById({
@@ -94,17 +90,12 @@ const deleteProduct = async (req, res, next) => {
     const { _id } = req.user;
     if (!productId) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message:
-          "you must pass an productId route parameter that is equal to the product ID",
+        message: "you must pass an productId route parameter that is equal to the product ID",
       });
       throw error;
     }
-    const currentClient = (
-      await diaryService.currentClientDiary({ clientId: _id })
-    ).toObject();
-    const productCheck = currentClient.consumedProduct.some(
-      (elem) => elem.id === productId
-    );
+    const currentClient = (await diaryService.currentClientDiary({ clientId: _id })).toObject();
+    const productCheck = currentClient.consumedProduct.some((elem) => elem.id === productId);
     if (!productCheck) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
         message: "this product is not in consumedProduct",
@@ -125,17 +116,12 @@ const deleteExercise = async (req, res, next) => {
     const { _id } = req.user;
     if (!exerciseId) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message:
-          "you must pass an exerciseId route parameter that is equal to the exercise ID",
+        message: "you must pass an exerciseId route parameter that is equal to the exercise ID",
       });
       throw error;
     }
-    const currentClient = (
-      await diaryService.currentClientDiary({ clientId: _id })
-    ).toObject();
-    const exerciseCheck = currentClient.exerciseDone.some(
-      (elem) => elem.id === exerciseId
-    );
+    const currentClient = (await diaryService.currentClientDiary({ clientId: _id })).toObject();
+    const exerciseCheck = currentClient.exerciseDone.some((elem) => elem.id === exerciseId);
     if (!exerciseCheck) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
         message: "this exercise is not in exerciseDone",
@@ -149,6 +135,76 @@ const deleteExercise = async (req, res, next) => {
     next(e);
   }
 };
+
+// const dairyDateInfo = async (req, res, next) => {
+//   try {
+//     const option = req.params;
+//     const { _id, BMR, timeForSport } = req.user;
+
+//     if (validateSchema.datePattern.validate(option).error) {
+//       const error = createError(ERROR_TYPES.BAD_REQUEST, {
+//         message: validateSchema.datePattern.validate(option).error.details[0].message,
+//       });
+//       throw error;
+//     }
+//     const currentClientDiary = await diaryService.currentClientDiary({
+//       clientId: _id,
+//     });
+//     if (!currentClientDiary) {
+//       const error = createError(ERROR_TYPES.NOT_FOUND, {
+//         message: "user is not a found",
+//       });
+//       throw error;
+//     }
+
+//     const caloriesConsumed = currentClientDiary.consumedProduct
+//       .filter((elem) => elem.date === option.date)
+//       .reduce((accumulator, currentValue) => {
+//         return accumulator + currentValue.calories;
+//       }, 0);
+
+//     const caloriesRest = BMR - caloriesConsumed;
+
+//     const caloriesBurned = currentClientDiary.exerciseDone
+//       .filter((elem) => elem.date === option.date)
+//       .reduce((accumulator, currentValue) => {
+//         return accumulator + currentValue.burnedCalories;
+//       }, 0);
+
+//     const restSport = currentClientDiary.exerciseDone
+//       .filter((elem) => elem.date === option.date)
+//       .reduce((accumulator, currentValue) => {
+//         return accumulator + currentValue.time;
+//       }, 0);
+
+//     const dataClientDiary = {
+//       BMR,
+//       timeForSport,
+//       caloriesConsumed,
+//       caloriesRest,
+//       caloriesBurned,
+//       restSport,
+//     };
+
+//     await diaryService.updateDiaryClient(_id, { ...dataClientDiary });
+
+//     const updateUser = (
+//       await diaryService.currentClientDiary({
+//         clientId: _id,
+//       })
+//     ).toObject();
+//     updateUser.consumedProduct = updateUser.consumedProduct.filter(
+//       (elem) => elem.date === option.date
+//     );
+//     updateUser.exerciseDone = updateUser.exerciseDone.filter((elem) => elem.date === option.date);
+//     res.status(200).json({
+//       diary: updateUser,
+//     });
+//   } catch (e) {
+//     next(e);
+//   }
+// };
+
 const dairyDateInfo = async (req, res, next) => {
   try {
     const option = req.params;
@@ -156,8 +212,7 @@ const dairyDateInfo = async (req, res, next) => {
 
     if (validateSchema.datePattern.validate(option).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
-        message:
-          validateSchema.datePattern.validate(option).error.details[0].message,
+        message: validateSchema.datePattern.validate(option).error.details[0].message,
       });
       throw error;
     }
@@ -171,22 +226,24 @@ const dairyDateInfo = async (req, res, next) => {
       throw error;
     }
 
-    const caloriesConsumed = currentClientDiary.consumedProduct
-      .filter((elem) => elem.date == option.date)
-      .reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.calories;
-      }, 0);
+    const dateFilter = (elem) => elem.date === option.date;
+    const filteredConsumedProduct = currentClientDiary.consumedProduct.filter(dateFilter);
+    const filteredExerciseDone = currentClientDiary.exerciseDone.filter(dateFilter);
+
+    const caloriesConsumed = filteredConsumedProduct.reduce(
+      (sum, currentValue) => sum + currentValue.calories,
+      0
+    );
+    const caloriesBurned = filteredExerciseDone.reduce(
+      (sum, currentValue) => sum + currentValue.burnedCalories,
+      0
+    );
+    const restSport = filteredExerciseDone.reduce(
+      (sum, currentValue) => sum + currentValue.time,
+      0
+    );
     const caloriesRest = BMR - caloriesConsumed;
-    const caloriesBurned = currentClientDiary.exerciseDone
-      .filter((elem) => elem.date == option.date)
-      .reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.burnedCalories;
-      }, 0);
-    const restSport = currentClientDiary.exerciseDone
-      .filter((elem) => elem.date == option.date)
-      .reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.time;
-      }, 0);
+
     const dataClientDiary = {
       BMR,
       timeForSport,
@@ -195,25 +252,22 @@ const dairyDateInfo = async (req, res, next) => {
       caloriesBurned,
       restSport,
     };
+
     await diaryService.updateDiaryClient(_id, { ...dataClientDiary });
-    const updateUser = (
-      await diaryService.currentClientDiary({
-        clientId: _id,
-      })
-    ).toObject();
-    updateUser.consumedProduct = updateUser.consumedProduct.filter(
-      (elem) => elem.date == option.date
-    );
-    updateUser.exerciseDone = updateUser.exerciseDone.filter(
-      (elem) => elem.date == option.date
-    );
-    res.status(200).json({
-      diary: updateUser,
+
+    const updateUser = await diaryService.currentClientDiary({
+      clientId: _id,
     });
+
+    updateUser.consumedProduct = filteredConsumedProduct;
+    updateUser.exerciseDone = filteredExerciseDone;
+
+    res.status(200).json({ diary: updateUser });
   } catch (e) {
     next(e);
   }
 };
+
 module.exports = {
   saveProduct,
   saveExercise,

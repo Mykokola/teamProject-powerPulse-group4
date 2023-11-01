@@ -801,6 +801,33 @@
               "maximum": 100,
               "default": 10
             }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "category",
+            "optional": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "recommendation",
+            "in": "query",
+            "description": "recommendation",
+            "optional": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search",
+            "optional": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "tags": ["Products"],
