@@ -3,24 +3,75 @@ const createError = require("../utils/createError");
 const ERROR_TYPES = require("../constants/ERROR_CODES");
 const productService = require("../services/products");
 const validateSchema = require("../models/joi/products");
+
+// const getAllProducts = async (req, res, next) => {
+//   const { page = 1, limit = 20 } = req.query;
+//   const parsedPage = parseInt(page);
+//   const parsedLimit = parseInt(limit);
+
+//   try {
+//     const products = await productService.paginatedProducts(
+//       parsedPage,
+//       parsedLimit
+//     );
+
+//     if (products.length === 0) {
+//       return res.status(404).json({
+//         error: "Not found",
+//       });
+//     }
+
+//     res.json(products);
+//   } catch (e) {
+//     next(e);
+//   }
+// };
+
 const getAllProducts = async (req, res, next) => {
-  const { page = 1, limit = 20 } = req.query;
+  const { page, limit } = req.query;
   const parsedPage = parseInt(page);
   const parsedLimit = parseInt(limit);
+  const filterOptions = req.body;
+  const { blood } = req.user;
+
+  if (validateSchema.productsFilter.validate(filterOptions).error) {
+    const error = createError(ERROR_TYPES.BAD_REQUEST, {
+      message: "body is incorrect",
+    });
+    throw error;
+  }
+
+  if (validateSchema.productsPaginationFilter.validate(req.query).error) {
+    const error = createError(ERROR_TYPES.BAD_REQUEST, {
+      message: "query params is incorrect",
+    });
+    throw error;
+  }
 
   try {
-    const products = await productService.paginatedProducts(
-      parsedPage,
-      parsedLimit
-    );
+    let products = await productService.paginatedProducts(parsedPage, parsedLimit);
 
-    if (products.length === 0) {
-      return res.status(404).json({
-        error: "Not found",
-      });
+    if (filterOptions.category) {
+      products = products.filter((e) => e.category === filterOptions.category);
     }
 
-    res.json(products);
+    if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
+      const recommendOption = filterOptions.recommendation === "recommend";
+      products = products.filter((e) => e.groupBloodNotAllowed[blood] === recommendOption);
+    }
+
+    if (filterOptions.search) {
+      products = products.filter((e) => e.title === filterOptions.search);
+    }
+
+    if (products.length === 0) {
+      const error = createError(ERROR_TYPES.NOT_FOUND, {
+        message: "Product is not found",
+      });
+      throw error;
+    }
+
+    res.status(200).json(products);
   } catch (e) {
     next(e);
   }
@@ -46,10 +97,7 @@ const getAvailableProducts = async (req, res, next) => {
   try {
     const restrictedValue = req.params.type;
 
-    if (
-      restrictedValue === "" ||
-      (restrictedValue !== "true" && restrictedValue !== "false")
-    ) {
+    if (restrictedValue === "" || (restrictedValue !== "true" && restrictedValue !== "false")) {
       const error = createError(ERROR_TYPES.NOT_FOUND, {
         message: "Incorrect path value",
       });
@@ -76,7 +124,7 @@ const getAvailableProducts = async (req, res, next) => {
 const filterProduct = async (req, res, next) => {
   try {
     const filterOptions = req.body;
-  const {blood} = req.user;
+    const { blood } = req.user;
     if (validateSchema.productsFilter.validate(filterOptions).error) {
       const error = createError(ERROR_TYPES.BAD_REQUEST, {
         message: "body is incorrect",
@@ -85,28 +133,27 @@ const filterProduct = async (req, res, next) => {
     }
     let productsList = await productService.allProducts();
     if (filterOptions.category) {
-      productsList = productsList.filter(
-        (e) => e.category === filterOptions.category
-      );
+      productsList = productsList.filter((e) => e.category === filterOptions.category);
     }
-    if(filterOptions.recommendation&&filterOptions.recommendation !== 'all'){
-      let recomendOption = filterOptions.recommendation === "recommend"
-      productsList = productsList.filter(e => e.groupBloodNotAllowed[blood] === recomendOption)
+    if (filterOptions.recommendation && filterOptions.recommendation !== "all") {
+      let recomendOption = filterOptions.recommendation === "recommend";
+      productsList = productsList.filter((e) => e.groupBloodNotAllowed[blood] === recomendOption);
     }
-    if(filterOptions.search){
-      productsList = productsList.filter(e => e.title == filterOptions.search)
+    if (filterOptions.search) {
+      productsList = productsList.filter((e) => e.title == filterOptions.search);
     }
-    if(productsList.length === 0){
-      const error = createError(ERROR_TYPES.NOT_FOUND,{
-        message:"prodcut is not a found"
-      })
-      throw error
+    if (productsList.length === 0) {
+      const error = createError(ERROR_TYPES.NOT_FOUND, {
+        message: "prodcut is not a found",
+      });
+      throw error;
     }
     res.status(200).json(productsList);
   } catch (e) {
     next(e);
   }
 };
+
 module.exports = {
   getAllProducts: ctrlWrapper(getAllProducts),
   getAllCategories: ctrlWrapper(getAllCategories),
