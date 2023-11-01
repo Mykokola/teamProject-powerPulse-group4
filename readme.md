@@ -10,11 +10,9 @@ Our system is built using modern technologies such as Node.js to create a powerf
 
 # Development team :
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mykokola)
-Mykola Vladymyrskiy **Team Lead**
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mykokola) **Team Lead** Mykola Vladymyrskiy
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ifedchenko)
-Iurii Fedchenko **Full Stack Developer**
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ifedchenko) **Full Stack Developer** Iurii Fedchenko
 
 ### Commands:
 
