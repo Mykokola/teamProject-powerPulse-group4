@@ -1004,7 +1004,7 @@
         ],
         "tags": ["Exercises"],
         "summary": "returns filtered exercises by type",
-        "description": "Return all exercizes matches filter of \"body part\", \"equipment\" or \"target\". Type in \"parameters\" for example \"chest\"",
+        "description": "Return all exercizes matches filter of \"body part\", \"equipment\" or \"target\".",
         "parameters": [
           {
             "name": "type",
