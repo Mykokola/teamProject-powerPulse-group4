@@ -26,4 +26,6 @@ Our system is built using modern technologies such as Node.js to create a powerf
 - `npm lint:fix` &mdash; same linter check but with automatic ones corrections
   of simple errors
 
+### Documentation:
+
 https://teamproject-powerpulse-group4.onrender.com/api-docs/
