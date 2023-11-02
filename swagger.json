@@ -1660,6 +1660,7 @@
           }
         ],
         "tags": ["Diary"],
+        "description" :" <strong>consumedProduct </strong>:{`_id`:the name of the product is more precisely its id in the product database,`id`:unique identifier of the product that is in the array consumedProduct} `|` <strong>exerciseDone </strong>:{`_id`:the name of the exercise is more precisely its id in the exercise database,`id`:unique identifier of the exercise that is in the array exerciseDone}",
         "summary": "Retrieve the diary information for a specific date",
         "parameters": [
           {
